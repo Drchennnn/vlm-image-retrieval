@@ -64,7 +64,7 @@ CLIP 风格的对比预训练把匹配的图文对作为正样本，把同一批
 - 候选依赖列在 `requirements.txt` 中，目前尚未安装。
 - 计划创建名为 `vlm` 的虚拟环境，但当前本地尚未创建。
 
-待完成步骤和可能的后续方向见 [CHECKLIST.md](CHECKLIST.md)。
+待完成步骤和可能的后续方向见 [CHECKLIST.zh-CN.md](CHECKLIST.zh-CN.md)。
 
 ## 参考文献
 
