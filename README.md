@@ -33,6 +33,28 @@ The dataset, checkpoint, preprocessing, metrics, indexing method, and computing 
 
 Winoground is intended to remain evaluation-only unless a future experiment explicitly documents another use.
 
+## Proposed Project Structure
+
+The initial implementation may use the following layout:
+
+```text
+.
+├── README.md
+├── README.zh-CN.md
+├── CHECKLIST.md
+├── requirements.txt
+├── data/
+├── src/
+│   ├── data/
+│   ├── models/
+│   ├── retrieval/
+│   └── evaluation/
+├── scripts/
+└── tests/
+```
+
+This layout is provisional. Directories will be created only when they become part of an approved task.
+
 ## Current Evidence
 
 - Reference papers are present in the repository root.

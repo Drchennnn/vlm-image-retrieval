@@ -33,6 +33,28 @@ CLIP 风格的对比预训练把匹配的图文对作为正样本，把同一批
 
 除非未来实验明确记录其他用途，Winoground 计划仅用于评估。
 
+## 建议的项目结构
+
+首次实现可以采用以下布局：
+
+```text
+.
+├── README.md
+├── README.zh-CN.md
+├── CHECKLIST.md
+├── requirements.txt
+├── data/
+├── src/
+│   ├── data/
+│   ├── models/
+│   ├── retrieval/
+│   └── evaluation/
+├── scripts/
+└── tests/
+```
+
+该布局仍是临时建议。只有在成为已批准任务的一部分后，才创建对应目录。
+
 ## 当前证据
 
 - 项目根目录已有参考论文。
