@@ -1,0 +1,15 @@
+# Candidate dependencies only; do not install automatically.
+# The final list and versions will be decided after the baseline design.
+
+torch
+torchvision
+transformers
+Pillow
+numpy
+pandas
+scikit-learn
+tqdm
+datasets
+faiss-cpu
+jupyter
+matplotlib
