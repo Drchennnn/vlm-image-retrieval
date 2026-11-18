@@ -1,72 +1,45 @@
 # Natural-Language Image Retrieval with Pretrained Vision-Language Models
 
-[中文 / Chinese](README.zh-CN.md)
+[中文](README.zh-CN.md) · CS5489 Machine Learning · Reviewed 20 October 2026
 
-## Project Status
+## Status and scope
 
-This project is in the planning stage.
+**Planning and independent review completed; implementation and experiments have not started.** The repository contains the assignment, reference papers and planning documents. No dataset acquisition, installed project environment, model execution or experimental metric has been verified.
 
-The goal is to build a reproducible bidirectional image-text retrieval baseline using a pretrained vision-language model:
+Following [the assignment](1.md), this project will build a reproducible text-to-image and image-to-text retrieval system using pretrained CLIP, explain its contrastive pretraining objective, and investigate the limits of compositional matching. Foundation-model pretraining is out of scope. Fine-tuning is optional and conditional on a validated baseline, suitable training data and measured compute capacity.
 
-- text-to-image retrieval;
-- image-to-text retrieval.
+## Proposed study
 
-The first priority is a trustworthy baseline. Fine-tuning will be considered only after the baseline has been implemented and evaluated.
+| Component | Decision / condition |
+|---|---|
+| Baseline | Frozen OpenAI CLIP ViT-B/32 with its supplied preprocessing and tokenizer |
+| Primary data | Flickr30k, conditional on authorized access and validation of published retrieval split IDs |
+| Access fallback | COCO val2017 with an explicitly labelled custom development/evaluation split; never described as the Karpathy test split |
+| Retrieval | L2-normalized embeddings, exact cosine ranking, cached features and batched scoring |
+| Primary metrics | Recall@1, @5 and @10, separately for both retrieval directions |
+| Controlled comparison | Raw captions versus the fixed `a photo of ` prefix, motivated by CLIP Appendix E.1 |
+| Diagnostic | Winoground text, image and group scores, evaluation-only and conditional on licensed access |
+| Optional extension | One bounded adaptation experiment, only after the baseline review gate |
 
-## Method Overview
+These are project design choices, not measured findings. No performance improvement is promised. “Zero-shot” means no task-specific weight updates; it does not establish absence of overlap with CLIP's pretraining data.
 
-The planned baseline will use CLIP or a compatible pretrained model. An image encoder and a text encoder map both modalities into a shared embedding space. Normalized embeddings can be compared using cosine similarity or an equivalent dot product.
+## Method
 
-CLIP-style contrastive pretraining uses matched image-text pairs as positives and other combinations in the same batch as negatives. A symmetric objective increases the similarity of matched pairs and decreases the similarity of mismatched pairs.
+CLIP maps images and captions into a shared representation space. During pretraining, a symmetric cross-entropy objective promotes matching image-caption pairs over other pairings within a batch. In this project, the initial encoders remain frozen. Normalized image and text embeddings are ranked by their dot product; image-to-text evaluation accepts any annotated caption for the query image. See the [evaluation protocol](docs/EVALUATION.md) for exact definitions, split isolation and Winoground scoring.
 
-These descriptions summarize the referenced papers. They do not imply that this project has trained a model, downloaded data, or reproduced the original training setup.
+## Documentation
 
-## Evaluation Plan
+- [Project Proposal](PROJECT_PROPOSAL.md): standalone English submission text; [PDF](output/pdf/Project_Proposal.pdf).
+- [Independent review](docs/REVIEW.md): assignment traceability, corrections, evidence and unresolved assumptions.
+- [Project plan](docs/PROJECT_PLAN.md): intended structure, interfaces, six-week schedule, execution and review gates.
+- [Evaluation protocol](docs/EVALUATION.md): data sources, metrics, experiment controls and reproducibility requirements.
+- [Progress ledger](docs/PROGRESS.md): authoritative task status and evidence; [checklist](CHECKLIST.md) is a navigation summary.
+- [Agent instructions](AGENTS.md): operational rules for future contributors.
 
-The project will evaluate:
-
-- text-to-image retrieval;
-- image-to-text retrieval;
-- Winoground as an additional compositionality stress test.
-
-The dataset, checkpoint, preprocessing, metrics, indexing method, and computing environment are not finalized. Candidate retrieval metrics include Recall@K, median rank, mean rank, and mean reciprocal rank.
-
-Winoground is intended to remain evaluation-only unless a future experiment explicitly documents another use.
-
-## Proposed Project Structure
-
-The initial implementation may use the following layout:
-
-```text
-.
-├── README.md
-├── README.zh-CN.md
-├── CHECKLIST.md
-├── requirements.txt
-├── data/
-├── src/
-│   ├── data/
-│   ├── models/
-│   ├── retrieval/
-│   └── evaluation/
-├── scripts/
-└── tests/
-```
-
-This layout is provisional. Directories will be created only when they become part of an approved task.
-
-## Current Evidence
-
-- Reference papers are present in the repository root.
-- No project implementation has been verified.
-- No dataset, model run, experiment result, or metric has been verified.
-- `.agents`, `.specify`, `openspec`, and `.omx` are local tooling directories and are not part of the project upload set.
-- Candidate dependencies are listed in `requirements.txt`; they have not been installed.
-- A virtual environment named `vlm` is planned but has not been created locally.
-
-See [CHECKLIST.md](CHECKLIST.md) for pending work and possible future directions.
+The implementation layout in the plan is **not yet created**. `requirements.txt` remains an unpinned historical candidate list, not a validated installation specification. Dependency selection and locking are part of the environment milestone. No application command is advertised before it exists and passes a smoke test.
 
 ## References
 
-- [Learning Transferable Visual Models From Natural Language Supervision](./Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision.pdf) · [arXiv:2103.00020](https://arxiv.org/abs/2103.00020)
-- [Winoground](./Winoground.pdf) · [arXiv:2204.03162](https://arxiv.org/abs/2204.03162)
+- Radford et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision*. [Paper](https://arxiv.org/abs/2103.00020) · [Local PDF](paper/Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision.pdf) · [Official implementation](https://github.com/openai/CLIP).
+- Thrush et al. (2022). *Winoground: Probing Vision and Language Models for Visio-Linguistic Compositionality*. [Paper](https://arxiv.org/abs/2204.03162) · [Local PDF](paper/Winoground.pdf) · [Dataset](https://huggingface.co/datasets/facebook/winoground).
+- [Flickr30k source and access terms](https://shannon.cs.illinois.edu/DenotationGraph/) · [Published split release](https://cs.stanford.edu/people/karpathy/deepimagesent/) · [COCO](https://cocodataset.org/#download).

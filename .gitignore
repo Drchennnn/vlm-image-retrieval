@@ -6,5 +6,17 @@
 !/CHECKLIST.md
 !/CHECKLIST.zh-CN.md
 !/requirements.txt
-!/Learning Transferable Visual Models From Natural Language Supervision.pdf
-!/Winoground.pdf
+!/1.md
+!/PROJECT_PROPOSAL.md
+!/docs/
+/docs/*
+!/docs/*.md
+!/paper/
+/paper/*
+!/paper/Learning Transferable Visual Models From Natural Language Supervision.pdf
+!/paper/Winoground.pdf
+!/output/
+/output/*
+!/output/pdf/
+/output/pdf/*
+!/output/pdf/Project_Proposal.pdf
