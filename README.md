@@ -4,7 +4,7 @@ CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team
 
 ## Status
 
-**Round 3 (T4 — Phase 1 dev experiments) completed**: all three pretrained backbones (`CLIP ViT-B/32`, `CLIP RN50`, `SigLIP ViT-B/16`) have been encoded and evaluated on the full 1,000-image / 5,005-caption COCO `dev` split with image-grouped 5-fold CV tuning (`CSLS`, `Dual-Softmax`, `ModalityAligner`), 3-mode PCA/SVD dimensionality reduction, K-Means cluster diagnostics, and hubness analysis (`reports/dev_phase1_summary.json`, `configs/frozen_phase1.json`, and 4 diagnostic figures in `reports/figures/`). Phase 2 compositional hard-negative adaptation (Round 4) and final held-out test / Winoground evaluation (Round 5) are next.
+**Round 4 (T5 — Phase 2 NegCLIP-lite adaptation & full configuration freeze) completed**: all Phase 1 (`CLIP ViT-B/32`, `CLIP RN50`, `SigLIP ViT-B/16`, 5-fold CV `CSLS` / `Dual-Softmax` / `ModalityAligner`, 3-way DimRed, K-Means, hubness) and Phase 2 (`NegCLIP-lite` compositional hard-negative adaptation trained on 3K `train`, selected on 1K `dev`, improving dev cosine Mean R@1 `60.64% → 62.74%` and dev hard-negative accuracy `65.19% → 88.27%`) configurations are now frozen in `configs/frozen_all.json` with **17/17 passing unit tests**. One-shot held-out `test` and Winoground evaluation (Round 5) is next.
 
 ## Overview
 

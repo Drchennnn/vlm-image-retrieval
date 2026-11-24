@@ -11,7 +11,7 @@
 | T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | done | T1 | Antigravity / 自审（含缓存往返校验） | 3 模型全部在 M1 Pro MPS 加载并完成 100 图/501 文本 smoke；`cache_roundtrip_exact=true`；单模型编码 1.1–2.4s，峰值 RSS 2060.5 MB；`pytest` 4/4 通过 |
 | T3 | 核心检索、计分、新特征、重排与合成单元测试 | done | T0（可与 T1/T2 并行） | Antigravity / 自审（14 项合成单测 + CLI 端到端 smoke） | 完成 `retrieval / metrics / features / rerank / evaluate / cli` 模块；`pytest` 14/14 通过（含多正例、轴交换、平分、Winoground 24 排列=4/24、Hubness 救援、5-fold image-grouped 无泄漏、特征仅 dev 拟合）；CLI `evaluate` 与双向 `search` smoke 通过 |
 | T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | done | T1–T3 | Antigravity / 自审（含可视化图复核与 3 路降维对照） | 在 1,000 图 / 5,005 描述 dev 全库完成 3 模型 × 2 策略基线、5-fold CV 超参调优、Modality Gap/Hubness/PCA/K-Means 诊断；冻结配置 `configs/frozen_phase1.json`，汇总 `reports/dev_phase1_summary.json` 及 4 张图；`pytest` 14/14 通过 |
-| T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | deferred | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | 待认领 / 待分配 | Day 4 决策是否激活；若激活，仅在 dev 选参并冻结后进入 T6 |
+| T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | done | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | Antigravity / 自审（3 项新增单测 + 3 组受控消融） | 独立 3K `train` 集完成 3 组受控配置 × 3 epochs（总耗时 415.9s，本地 M1 Pro MPS，仅训 4.51% 参数）；`dev` 选定 `cfg1_text_adapter_lr1e5_hn0.5`（ep3）：dev cosine Mean R@1 `60.64% → 62.74% (+2.11%)`，Dual-Softmax `67.90% → 68.55%`，dev 组合性硬负例准确率 `65.19% → 88.27% (+23.08%)`；全配置已冻结至 `configs/frozen_all.json` |
 | T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | todo | T4 done 且 T5 为 done/deferred | 待认领 / 待分配 | 完整 run bundles、95% CI、全部最终图表（含缺失访问显式说明） |
 | T7 | 英文最终报告 PDF 与可复现代码清理 | todo | T6 | 待认领 / 待分配 | 对照 100 分 Rubric 逐项核对；全部图表与表格可溯源至 run ID |
 | T8 | ≤5 分钟 Panopto 演示视频、Code ZIP 打包与 Canvas 三项提交 | todo | T7 | 待认领 / 待分配 | 独立复现验证、`ProjectGroup_X_Code.zip`、视频嵌入、组员贡献声明 |
@@ -81,6 +81,19 @@
   4. **K-Means 语义聚类难度差异**：`K=8`（Silhouette=0.125）时，运动/球场类场景（Cluster 2，如棒球/网球）I2T R@1 仅 `49.2%`，而食物/室内静物类（Cluster 7/1）达 `81.2%–84.5%`。
 - **产物与验证**：`configs/frozen_phase1.json`、`reports/dev_phase1_summary.json`、`reports/figures/dev_*.png`（4 张图已人工目视核查）、`artifacts/runs/dev/`（6 个基线 run bundles）；`pytest` **14/14 passed**。
 - **下一步**：Round 4（T5）执行 Phase 2 轻量适应（NegCLIP-lite：在独立 3K `train` 集构造组合性硬负例，冻结图像主干、微调文本端，在 `dev` 集选参并冻结最终配置）。
+
+### 2026-11-24 — Round 4：Phase 2 NegCLIP-lite 组合性硬负例轻量适应与全配置冻结（T5）
+- **新增实现与验证**：
+  - `src/vlm_retrieval/adapt.py`：4 算子组合性硬负例生成器（`relational_swap`、`np_swap`、`attribute_swap`、`content_shuffle`）、零初始化 `ResidualImageAdapter`、对称 InfoNCE + 硬负例成对对比损失 `negclip_loss`、仅解冻 CLIP 文本编码器顶层 2 层 Transformer + `ln_final` + `text_projection`。
+  - `tests/test_adapt.py` + 全套 `pytest`：**17/17 passed in 7.64s**。
+- **训练协议与资源实测**（`scripts/run_round4_phase2.py`，严格仅用 3,000 图 `train`、每步每图仅采 1 条正描述防假负例、零触碰 `test` 与 Winoground）：
+  - 一次性预缓存 3,000 张 `train` 图像特征耗时 `31.3s`；3 组受控配置 × 3 epochs 在 M1 Pro MPS 上每 epoch 仅 `19.3–22.4s`，全流程总耗时 **`415.9s`（~6.9 分钟）**，峰值 RSS `2,147.0 MB`（仅训练 4.51% / 6.83M 参数）。
+- **Dev 消融与选参结果（相对 Frozen CLIP ViT-B/32 `photo_prefix`：dev_cos 60.64%、dev_DS 67.90%、dev_comp 65.19%）**：
+  - **`cfg1_text_adapter_lr1e5_hn0.5`（ep3，选中冻结）**：`dev_cos = 62.74% (+2.11%)`（T2I `49.47→53.49%`、I2T `71.80→72.00%` 双向上涨），`dev_CSLS = 67.82%`，`dev_DS = 68.55%`，`dev_comp = 88.27% (+23.08%)`。
+  - `cfg2_text_adapter_lr3e5_hn1.0`（ep2/3）：强硬负例权重把 `dev_comp` 推至 `92.63%`、T2I 推至 `54.55%`、`dev_DS` 推至 `69.90%`，但导致原始余弦 I2T 回落至 `67.70%`（清晰揭示检索—组合性权衡，而 Dual-Softmax 有效抵消了文本端偏移）。
+  - `cfg3_text_only_lr2e5_hn1.0`（ep2，去 Adapter 消融）：`dev_cos = 61.50%`，`dev_comp = 91.57%`，`dev_DS = 69.43%`。
+- **冻结与产物**：权重保存至 `artifacts/checkpoints/negclip_lite_best.pt`（不入库）；全实验配置冻结至 `configs/frozen_all.json`；结果汇总 `reports/dev_phase2_summary.json`；训练曲线图 `reports/figures/dev_phase2_negclip_lite.png`。
+- **下一步**：Round 5（T6）在冻结配置 `configs/frozen_all.json` 下一次性运行 **held-out test（1,000 图 / 5,002 描述）** 与 **Winoground**（如已授权），计算 paired bootstrap 95% CI、分层失败案例与全部终稿图表。
 
 ---
 

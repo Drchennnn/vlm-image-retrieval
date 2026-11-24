@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 T0、Round 1（T1+T2）、Round 2（T3，14 项单测全通过）及 **Round 3（T4：完整 1K dev 集 3 模型基线 + 5-fold CV 超参调优 + Modality Gap/Hubness/3 路降维/K-Means 诊断，配置已冻结至 `configs/frozen_phase1.json`）**。下一步进入 **Round 4（T5）**：在独立 3K `train` 集执行 Phase 2 NegCLIP-lite 组合性硬负例轻量适应并在 `dev` 集选参。
+已完成 T0、Round 1（T1+T2）、Round 2（T3）、Round 3（T4：Phase 1 1K dev 全量实验）及 **Round 4（T5：Phase 2 NegCLIP-lite 3K train 硬负例轻量适应，dev 选定 `cfg1_text_adapter_lr1e5_hn0.5` ep3，全配置已冻结至 `configs/frozen_all.json`，17 项单测全通过）**。下一步进入 **Round 5（T6）**：按冻结配置一次性运行 held-out 1K `test`、Winoground 诊断、1,000 次 paired bootstrap CI、分层失败案例与终稿图表。

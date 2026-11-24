@@ -1,0 +1,88 @@
+{
+  "protocol_version": "v2",
+  "frozen_from_split": "dev",
+  "dev_manifest_sha256": "901400596ba90b2db183b6ac8e9c3a4f7decf0c42a6fd8a60c37e51ec3d9c395",
+  "seed": 5489,
+  "models": {
+    "clip_vit_b32": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_shared",
+        "eps": 0.05
+      },
+      "best_csls_k": 5,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    },
+    "clip_rn50": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_per_modality",
+        "eps": 0.05
+      },
+      "best_csls_k": 5,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    },
+    "siglip_vit_b16": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_per_modality",
+        "eps": 0.05
+      },
+      "best_csls_k": 10,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    }
+  },
+  "phase2_negclip_lite": {
+    "status": "enabled",
+    "base_model": "clip_vit_b32",
+    "selected_config": {
+      "name": "cfg1_text_adapter_lr1e5_hn0.5",
+      "lr": 1e-05,
+      "weight_decay": 0.01,
+      "lambda_hn": 0.5,
+      "epochs": 3,
+      "batch_size": 64,
+      "unfreeze_text_blocks": 2,
+      "use_img_adapter": true,
+      "policy": "photo_prefix",
+      "seed": 5489
+    },
+    "selected_epoch": 3,
+    "checkpoint_path": "artifacts/checkpoints/negclip_lite_best.pt",
+    "train_manifest_sha256": "78eafdd86146cedff803a7bf808c5e77acd8254c120a3c8462e16bd17a2df7c0",
+    "dev_selected_metrics": {
+      "epoch": 3,
+      "train_seconds": 21.26,
+      "eval_seconds": 25.28,
+      "train_loss_mean": 0.6248,
+      "train_batch_comp_acc": 89.17,
+      "dev_comp_acc": 88.27,
+      "dev_cosine": {
+        "mean_R@1": 62.7433,
+        "t2i_R@1": 53.49,
+        "i2t_R@1": 72.0,
+        "t2i_R@5": 82.8,
+        "i2t_R@5": 92.4
+      },
+      "dev_csls": {
+        "mean_R@1": 67.8209,
+        "t2i_R@1": 58.24,
+        "i2t_R@1": 77.4
+      },
+      "dev_dual_softmax": {
+        "mean_R@1": 68.5501,
+        "t2i_R@1": 59.8,
+        "i2t_R@1": 77.3
+      }
+    }
+  }
+}
