@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 T0 及 Round 1–5（T1–T6 全部实验闭环）：3 模型基线 + 5-fold CV 超参调优 + 3 路降维/聚类/Hubness 诊断 + Phase 2 NegCLIP-lite 适应 + 冻结后一次性 held-out 1K `test` 与完整 400 组 Winoground 终测 + 1,000 次 paired bootstrap 95% CI + 分层失败案例 + 全部 9 张图表（`reports/final_test_summary.json`、`reports/stratified_case_analysis.json`、`reports/figures/`）。下一步进入 **Round 6**：完善英文 `README.md` 复现命令与目录说明、生成报告汇总表并做端到端复现自检，随后撰写英文最终报告 PDF 与录 5 分钟 Panopto 视频。
+已完成 T0 及 Round 1–6（Phase 1 + Phase 2 全部实验、代码包、17 项单测、端到端复现自检与提交准备全部闭环）：完整英文复现指南见 `README.md`，所有机器生成报告表格与 9 张图表索引见 `reports/RESULTS_SUMMARY.md`，一键打包提交脚本见 `scripts/package_code_zip.py`。剩余交付：撰写英文最终报告 PDF（T7 终稿）、录制 ≤5 分钟 Panopto 演示视频、打包 `ProjectGroup_<X>_Code.zip` 并提交 Canvas 三项作业（截止 **2026-12-01 23:59 HKT**）。

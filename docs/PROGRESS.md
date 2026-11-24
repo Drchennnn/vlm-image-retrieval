@@ -13,7 +13,7 @@
 | T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | done | T1–T3 | Antigravity / 自审（含可视化图复核与 3 路降维对照） | 在 1,000 图 / 5,005 描述 dev 全库完成 3 模型 × 2 策略基线、5-fold CV 超参调优、Modality Gap/Hubness/PCA/K-Means 诊断；冻结配置 `configs/frozen_phase1.json`，汇总 `reports/dev_phase1_summary.json` 及 4 张图；`pytest` 14/14 通过 |
 | T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | done | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | Antigravity / 自审（3 项新增单测 + 3 组受控消融） | 独立 3K `train` 集完成 3 组受控配置 × 3 epochs（总耗时 415.9s，本地 M1 Pro MPS，仅训 4.51% 参数）；`dev` 选定 `cfg1_text_adapter_lr1e5_hn0.5`（ep3）：dev cosine Mean R@1 `60.64% → 62.74% (+2.11%)`，Dual-Softmax `67.90% → 68.55%`，dev 组合性硬负例准确率 `65.19% → 88.27% (+23.08%)`；全配置已冻结至 `configs/frozen_all.json` |
 | T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | done | T4 done 且 T5 为 done/deferred | Antigravity / 自审（含 4 张终稿图目视核查与 400 组 Winoground 完整校验） | 冻结配置一次性跑完 1K held-out `test`（5,002 描述）与官方 400 组 Winoground（`is_partial=false`）；生成 1,000 次 paired bootstrap 95% CI、分层抽样失败案例 `reports/stratified_case_analysis.json`、总汇总 `reports/final_test_summary.json` 及 4 张终稿图；`CLIP ViT-B/32` Dual-SM 68.86%（+8.14%）、`SigLIP` Dual-SM 80.44%（+5.23%）、`NegCLIP-lite` Dual-SM 69.51% & test 硬负例 88.02%（+22.43%）；Winoground Group: RN50 7.25% / ViT-B/32 8.75% / NegCLIP-lite 9.00% / SigLIP 10.25% |
-| T7 | 英文最终报告 PDF 与可复现代码清理 | todo | T6 | 待认领 / 待分配 | 对照 100 分 Rubric 逐项核对；全部图表与表格可溯源至 run ID |
+| T7 | 英文最终报告 PDF 与可复现代码清理 | doing | T6 | Antigravity / 待组员终审 | 代码清理、完整英文 `README.md` 复现文档、脚本化汇总表 `reports/RESULTS_SUMMARY.md`、Code ZIP 打包脚本与端到端复现自检已完成（Round 6）；待撰写最终英文报告 PDF |
 | T8 | ≤5 分钟 Panopto 演示视频、Code ZIP 打包与 Canvas 三项提交 | todo | T7 | 待认领 / 待分配 | 独立复现验证、`ProjectGroup_X_Code.zip`、视频嵌入、组员贡献声明 |
 
 状态枚举：`todo / doing / blocked / review / done / deferred`。
@@ -112,6 +112,17 @@
   - 关键洞见：即便在 COCO 上达到 80.44% R@1 的 SigLIP、或域内硬负例提升 +22.4% 的 NegCLIP-lite，在 Winoground 上 Group 分数仍全面低于随机 16.67%，证明冻结视觉双塔在细粒度视觉关系绑定上的结构性瓶颈。
 - **产物**：`reports/final_test_summary.json`、`reports/stratified_case_analysis.json`、4 张终稿图（`reports/figures/final_*.png`，已目视核查）、`artifacts/runs/test/` 与 `artifacts/runs/winoground/` 完整 run bundles。
 - **下一步**：Round 6（T7 准备）完善英文 `README.md` 复现说明、生成报告直接可用的指标总表与图表索引并执行端到端复现自检。
+
+### 2026-11-24 — Round 6：复现文档收口、报告汇总表生成与端到端复现自检（T7 代码与复现部分）
+- **新增与更新**：
+  - `scripts/generate_report_tables.py`：直接从机器可读 JSON 产物自动生成 `reports/RESULTS_SUMMARY.md`（9 张结构化汇总表 + 9 张图表索引，零手填数字）。
+  - `scripts/package_code_zip.py`：一键生成合规 `ProjectGroup_<X>_Code.zip`（自动剔除大数据集、权重、缓存、`.venv`、工具目录与中文译本；试跑打包 52 文件仅 `1.50 MB`）。
+  - `README.md`：更新为完整提交级英文复现说明（含 COCO 与 Winoground 官方下载 URL、目录结构、安装锁文件、17 项单测、Round 1–6 全流程脚本与交互式 CLI 命令）。
+- **端到端验证（退出码均为 0）**：
+  - `.venv/bin/pytest -v`：**17 passed in 5.82s**。
+  - CLI 复现校验：`vlm_retrieval.cli evaluate --model clip_vit_b32 --split dev --policy photo_prefix --rerank dual_softmax --ds-temp 0.02 --ds-mode prior_weighted` 精确复现 `mean_R@1 = 67.9005%`（与 Round 3 完全一致）；双向 `search`（I2T / T2I）均正常返回结果。
+  - 本地链接与格式检查：7 份活跃 Markdown 文件共 33 处本地链接全部有效；`git diff --check` 无空白问题。
+- **下一步**：撰写英文最终报告 PDF（直接引用 `reports/RESULTS_SUMMARY.md` 与 `reports/figures/`）、录制 ≤5 分钟 Panopto 视频（标题 `Group X: Y`）、运行 `package_code_zip.py --group <X>` 并完成 Canvas 三项提交（2026-12-01 23:59 HKT 前）。
 
 ---
 
