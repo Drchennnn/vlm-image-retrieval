@@ -1,0 +1,2911 @@
+{
+  "seed": 5489,
+  "coco_test_t2i": {
+    "sampling_summary": {
+      "seed": 5489,
+      "max_per_stratum": 10,
+      "total_success": 2486,
+      "total_failure": 2516,
+      "sampled_success_ids": [
+        "183571",
+        "217105",
+        "23771",
+        "27015",
+        "278577",
+        "352267",
+        "43060",
+        "543341",
+        "613651",
+        "734882"
+      ],
+      "sampled_failure_ids": [
+        "197951",
+        "206730",
+        "298668",
+        "438390",
+        "455166",
+        "457006",
+        "488716",
+        "506518",
+        "633205",
+        "780469"
+      ]
+    },
+    "success_cases": [
+      {
+        "query_id": "183571",
+        "caption_text": "This is a train on the tracks that is filled with doors for houses.",
+        "gt_image_id": "000000572303",
+        "gt_image_path": "val2017/000000572303.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000572303",
+            "top1_score": 0.293375
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000572303",
+            "top1_score": 0.3023
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000572303",
+            "top1_score": -0.003219
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000572303",
+            "top1_score": 0.005483
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000572303",
+            "top1_score": 0.283599
+          },
+          "E2_siglip_prefix": {
+            "rank": 2,
+            "top1_id": "000000379800",
+            "top1_score": 0.114533
+          }
+        }
+      },
+      {
+        "query_id": "217105",
+        "caption_text": "A pizza sitting on top of a pizza box covered in cheese.",
+        "gt_image_id": "000000024144",
+        "gt_image_path": "val2017/000000024144.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": 0.308125
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": 0.313372
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": -0.015189
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": 0.003059
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": 0.310751
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000024144",
+            "top1_score": 0.139023
+          }
+        }
+      },
+      {
+        "query_id": "23771",
+        "caption_text": "A dark skinned woman posses beneath an umbrella.",
+        "gt_image_id": "000000377239",
+        "gt_image_path": "val2017/000000377239.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.310811
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.310578
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.039407
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.021576
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.316196
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000377239",
+            "top1_score": 0.146666
+          }
+        }
+      },
+      {
+        "query_id": "27015",
+        "caption_text": "A cat sprawled out over the top of a laptop computer keyboard.",
+        "gt_image_id": "000000119233",
+        "gt_image_path": "val2017/000000119233.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000119233",
+            "top1_score": 0.333482
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000119233",
+            "top1_score": 0.332125
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "000000058111",
+            "top1_score": 0.023457
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "000000058111",
+            "top1_score": 0.023411
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000119233",
+            "top1_score": 0.344127
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000119233",
+            "top1_score": 0.144605
+          }
+        }
+      },
+      {
+        "query_id": "278577",
+        "caption_text": "A giraffe and a goose stand in a fenced area.",
+        "gt_image_id": "000000245513",
+        "gt_image_path": "val2017/000000245513.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.359155
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.361529
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.038109
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.020907
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.351388
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000245513",
+            "top1_score": 0.160753
+          }
+        }
+      },
+      {
+        "query_id": "352267",
+        "caption_text": "The women are playing a video game together.",
+        "gt_image_id": "000000293625",
+        "gt_image_path": "val2017/000000293625.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.300636
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.34222
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.01078
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.022645
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.334698
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000293625",
+            "top1_score": 0.116349
+          }
+        }
+      },
+      {
+        "query_id": "43060",
+        "caption_text": "Spectators enjoying a show of two men on four-wheelers.",
+        "gt_image_id": "000000204186",
+        "gt_image_path": "val2017/000000204186.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.334734
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.349924
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.064246
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.055409
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.338351
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000204186",
+            "top1_score": 0.14937
+          }
+        }
+      },
+      {
+        "query_id": "543341",
+        "caption_text": "A room with a chair, couch, mirror and lamp.",
+        "gt_image_id": "000000473821",
+        "gt_image_path": "val2017/000000473821.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000473821",
+            "top1_score": 0.289412
+          },
+          "E1_clip_prefix": {
+            "rank": 4,
+            "top1_id": "000000004495",
+            "top1_score": 0.308474
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000473821",
+            "top1_score": -0.005784
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000473821",
+            "top1_score": 0.007143
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000473821",
+            "top1_score": 0.294986
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000473821",
+            "top1_score": 0.123739
+          }
+        }
+      },
+      {
+        "query_id": "613651",
+        "caption_text": "A close up shot of some apples pears and bananas on a table.",
+        "gt_image_id": "000000548506",
+        "gt_image_path": "val2017/000000548506.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.27403
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.288279
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.005268
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.004774
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.285525
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000548506",
+            "top1_score": 0.164892
+          }
+        }
+      },
+      {
+        "query_id": "734882",
+        "caption_text": "a cat wearing a hat on its head",
+        "gt_image_id": "000000286708",
+        "gt_image_path": "val2017/000000286708.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.30995
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.315741
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.018249
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.020778
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.326819
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000286708",
+            "top1_score": 0.129637
+          }
+        }
+      }
+    ],
+    "failure_cases": [
+      {
+        "query_id": "197951",
+        "caption_text": "a table with many plates of food on top",
+        "gt_image_id": "000000305609",
+        "gt_image_path": "val2017/000000305609.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 9,
+            "top1_id": "000000002157",
+            "top1_score": 0.301125
+          },
+          "E1_clip_prefix": {
+            "rank": 9,
+            "top1_id": "000000002157",
+            "top1_score": 0.312794
+          },
+          "E4_clip_csls": {
+            "rank": 6,
+            "top1_id": "000000226903",
+            "top1_score": -0.025029
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "000000226903",
+            "top1_score": 0.005009
+          },
+          "E5_negclip_lite": {
+            "rank": 7,
+            "top1_id": "000000002157",
+            "top1_score": 0.311244
+          },
+          "E2_siglip_prefix": {
+            "rank": 3,
+            "top1_id": "000000210520",
+            "top1_score": 0.109294
+          }
+        }
+      },
+      {
+        "query_id": "206730",
+        "caption_text": "a close up of a lot of animals with a fence",
+        "gt_image_id": "000000360325",
+        "gt_image_path": "val2017/000000360325.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 17,
+            "top1_id": "000000025139",
+            "top1_score": 0.302346
+          },
+          "E1_clip_prefix": {
+            "rank": 14,
+            "top1_id": "000000025139",
+            "top1_score": 0.30742
+          },
+          "E4_clip_csls": {
+            "rank": 6,
+            "top1_id": "000000025139",
+            "top1_score": -0.024783
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 4,
+            "top1_id": "000000183104",
+            "top1_score": 0.002482
+          },
+          "E5_negclip_lite": {
+            "rank": 4,
+            "top1_id": "000000025139",
+            "top1_score": 0.293784
+          },
+          "E2_siglip_prefix": {
+            "rank": 3,
+            "top1_id": "000000288685",
+            "top1_score": 0.084829
+          }
+        }
+      },
+      {
+        "query_id": "298668",
+        "caption_text": "An elaborate decoration hangs on the side of a tall building.",
+        "gt_image_id": "000000424135",
+        "gt_image_path": "val2017/000000424135.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "000000252559",
+            "top1_score": 0.309568
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000424135",
+            "top1_score": 0.3143
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "000000252559",
+            "top1_score": 0.016867
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "000000252559",
+            "top1_score": 0.009291
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000424135",
+            "top1_score": 0.30741
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000424135",
+            "top1_score": 0.119431
+          }
+        }
+      },
+      {
+        "query_id": "438390",
+        "caption_text": "A man in helmet riding an elephant next to trees.",
+        "gt_image_id": "000000267191",
+        "gt_image_path": "val2017/000000267191.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 5,
+            "top1_id": "000000201025",
+            "top1_score": 0.31007
+          },
+          "E1_clip_prefix": {
+            "rank": 7,
+            "top1_id": "000000201025",
+            "top1_score": 0.313958
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "000000201025",
+            "top1_score": -0.000987
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 3,
+            "top1_id": "000000201025",
+            "top1_score": 0.004675
+          },
+          "E5_negclip_lite": {
+            "rank": 4,
+            "top1_id": "000000201025",
+            "top1_score": 0.316987
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000267191",
+            "top1_score": 0.111725
+          }
+        }
+      },
+      {
+        "query_id": "455166",
+        "caption_text": "A toy smiley face in the middle of a doughnut.",
+        "gt_image_id": "000000572388",
+        "gt_image_path": "val2017/000000572388.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "000000466567",
+            "top1_score": 0.280381
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "000000572388",
+            "top1_score": 0.288117
+          },
+          "E4_clip_csls": {
+            "rank": 4,
+            "top1_id": "000000093353",
+            "top1_score": -0.021906
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 4,
+            "top1_id": "000000093353",
+            "top1_score": 0.002853
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "000000572388",
+            "top1_score": 0.289512
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000572388",
+            "top1_score": 0.115652
+          }
+        }
+      },
+      {
+        "query_id": "457006",
+        "caption_text": "A man getting ready to swing at a tennis ball.",
+        "gt_image_id": "000000064718",
+        "gt_image_path": "val2017/000000064718.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 12,
+            "top1_id": "000000193743",
+            "top1_score": 0.335563
+          },
+          "E1_clip_prefix": {
+            "rank": 23,
+            "top1_id": "000000327617",
+            "top1_score": 0.338193
+          },
+          "E4_clip_csls": {
+            "rank": 26,
+            "top1_id": "000000327617",
+            "top1_score": -0.010574
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 24,
+            "top1_id": "000000327617",
+            "top1_score": 0.003001
+          },
+          "E5_negclip_lite": {
+            "rank": 11,
+            "top1_id": "000000343218",
+            "top1_score": 0.324712
+          },
+          "E2_siglip_prefix": {
+            "rank": 16,
+            "top1_id": "000000343218",
+            "top1_score": 0.126772
+          }
+        }
+      },
+      {
+        "query_id": "488716",
+        "caption_text": "A group of women sitting around a table sharing a meal.",
+        "gt_image_id": "000000242946",
+        "gt_image_path": "val2017/000000242946.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "000000266768",
+            "top1_score": 0.292922
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "000000266768",
+            "top1_score": 0.297812
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "000000266768",
+            "top1_score": -0.008598
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "000000266768",
+            "top1_score": 0.00443
+          },
+          "E5_negclip_lite": {
+            "rank": 2,
+            "top1_id": "000000266768",
+            "top1_score": 0.312495
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000242946",
+            "top1_score": 0.110678
+          }
+        }
+      },
+      {
+        "query_id": "506518",
+        "caption_text": "a plate with a sandwich and a bowl of pasta salad on a table",
+        "gt_image_id": "000000120853",
+        "gt_image_path": "val2017/000000120853.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 4,
+            "top1_id": "000000430056",
+            "top1_score": 0.307979
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "000000430056",
+            "top1_score": 0.308992
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "000000120853",
+            "top1_score": -0.003139
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "000000120853",
+            "top1_score": 0.007964
+          },
+          "E5_negclip_lite": {
+            "rank": 2,
+            "top1_id": "000000430056",
+            "top1_score": 0.307953
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "000000120853",
+            "top1_score": 0.118813
+          }
+        }
+      },
+      {
+        "query_id": "633205",
+        "caption_text": "A room with a Tv, potted plant, tables and chairs",
+        "gt_image_id": "000000440475",
+        "gt_image_path": "val2017/000000440475.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 5,
+            "top1_id": "000000166166",
+            "top1_score": 0.29999
+          },
+          "E1_clip_prefix": {
+            "rank": 7,
+            "top1_id": "000000166166",
+            "top1_score": 0.314755
+          },
+          "E4_clip_csls": {
+            "rank": 6,
+            "top1_id": "000000166166",
+            "top1_score": -0.003808
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 6,
+            "top1_id": "000000166166",
+            "top1_score": 0.005068
+          },
+          "E5_negclip_lite": {
+            "rank": 2,
+            "top1_id": "000000166166",
+            "top1_score": 0.30705
+          },
+          "E2_siglip_prefix": {
+            "rank": 8,
+            "top1_id": "000000004495",
+            "top1_score": 0.106306
+          }
+        }
+      },
+      {
+        "query_id": "780469",
+        "caption_text": "a man that is surfing on some water",
+        "gt_image_id": "000000054164",
+        "gt_image_path": "val2017/000000054164.jpg",
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 5,
+            "top1_id": "000000115898",
+            "top1_score": 0.299561
+          },
+          "E1_clip_prefix": {
+            "rank": 5,
+            "top1_id": "000000115898",
+            "top1_score": 0.300845
+          },
+          "E4_clip_csls": {
+            "rank": 3,
+            "top1_id": "000000417911",
+            "top1_score": -0.017143
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "000000417911",
+            "top1_score": 0.002808
+          },
+          "E5_negclip_lite": {
+            "rank": 4,
+            "top1_id": "000000115898",
+            "top1_score": 0.313551
+          },
+          "E2_siglip_prefix": {
+            "rank": 11,
+            "top1_id": "000000115898",
+            "top1_score": 0.123326
+          }
+        }
+      }
+    ]
+  },
+  "coco_test_i2t": {
+    "sampling_summary": {
+      "seed": 5489,
+      "max_per_stratum": 10,
+      "total_success": 699,
+      "total_failure": 301,
+      "sampled_success_ids": [
+        "000000053505",
+        "000000087470",
+        "000000114770",
+        "000000136915",
+        "000000144784",
+        "000000199681",
+        "000000267946",
+        "000000351589",
+        "000000394510",
+        "000000488664"
+      ],
+      "sampled_failure_ids": [
+        "000000062353",
+        "000000066817",
+        "000000151629",
+        "000000241297",
+        "000000248112",
+        "000000249643",
+        "000000271457",
+        "000000289417",
+        "000000390246",
+        "000000509656"
+      ]
+    },
+    "success_cases": [
+      {
+        "query_id": "000000053505",
+        "image_path": "val2017/000000053505.jpg",
+        "gt_captions": [
+          "A toilet sitting underneath a medicine cabinet in a bathroom.",
+          "A small bathroom with a toilet and medicine cabinet.",
+          "A bathroom is shown with a stainless steel shelf, toilet and wall phone.",
+          "There are a variety of bottles and two towels over the toilet.",
+          "A toilet area features some shelving with silver accents and towels and a white toilet."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "190914",
+            "top1_score": 0.33029,
+            "top1_caption": "A toilet area features some shelving with silver accents and towels and a white toilet."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "190914",
+            "top1_score": 0.32637,
+            "top1_caption": "A toilet area features some shelving with silver accents and towels and a white toilet."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "190914",
+            "top1_score": 0.016023,
+            "top1_caption": "A toilet area features some shelving with silver accents and towels and a white toilet."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "190914",
+            "top1_score": 0.036354,
+            "top1_caption": "A toilet area features some shelving with silver accents and towels and a white toilet."
+          },
+          "E5_negclip_lite": {
+            "rank": 2,
+            "top1_id": "570700",
+            "top1_score": 0.316393,
+            "top1_caption": "An all-white bathroom with a light fixture and small mirror above a sink"
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "184986",
+            "top1_score": 0.110153,
+            "top1_caption": "A bathroom is shown with a stainless steel shelf, toilet and wall phone."
+          }
+        }
+      },
+      {
+        "query_id": "000000087470",
+        "image_path": "val2017/000000087470.jpg",
+        "gt_captions": [
+          "A bunch of cows walking on the side of the road",
+          "a big heard of cows walking down a road in a row with green tags on their ears",
+          "Many cows travel down the side of a street",
+          "A herd of cattle walking down a country road.",
+          "A herd of cattle walking down a road being followed by a cowboy."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "621405",
+            "top1_score": 0.346911,
+            "top1_caption": "A herd of cattle walking down a road being followed by a cowboy."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "621405",
+            "top1_score": 0.345091,
+            "top1_caption": "A herd of cattle walking down a road being followed by a cowboy."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "621405",
+            "top1_score": 0.053142,
+            "top1_caption": "A herd of cattle walking down a road being followed by a cowboy."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "621405",
+            "top1_score": 0.229065,
+            "top1_caption": "A herd of cattle walking down a road being followed by a cowboy."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "620841",
+            "top1_score": 0.360936,
+            "top1_caption": "A herd of cattle walking down a country road."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "615453",
+            "top1_score": 0.158178,
+            "top1_caption": "a big heard of cows walking down a road in a row with green tags on their ears"
+          }
+        }
+      },
+      {
+        "query_id": "000000114770",
+        "image_path": "val2017/000000114770.jpg",
+        "gt_captions": [
+          "A green military jeep, and motorcycle on display.",
+          "this is a jeep and a bike parked together",
+          "Display featuring military vehicles and large gun with huge mural.",
+          "A large gun, a jeep, a motorcycle, and a warplane are in front of a war backdrop.",
+          "A museum with an old military motorcycle and jeep on display."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "760655",
+            "top1_score": 0.353226,
+            "top1_caption": "A museum with an old military motorcycle and jeep on display."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "748024",
+            "top1_score": 0.36005,
+            "top1_caption": "A green military jeep, and motorcycle on display."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "748024",
+            "top1_score": 0.100566,
+            "top1_caption": "A green military jeep, and motorcycle on display."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "748024",
+            "top1_score": 0.326426,
+            "top1_caption": "A green military jeep, and motorcycle on display."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "748024",
+            "top1_score": 0.365642,
+            "top1_caption": "A green military jeep, and motorcycle on display."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "748024",
+            "top1_score": 0.181558,
+            "top1_caption": "A green military jeep, and motorcycle on display."
+          }
+        }
+      },
+      {
+        "query_id": "000000136915",
+        "image_path": "val2017/000000136915.jpg",
+        "gt_captions": [
+          "A man who is looking at a baseball bat.",
+          "A man standing with a baseball bat in a room.",
+          "A man is holding a baseball bat next to a Military dressed man.",
+          "a guy showing another guy a base ball bat",
+          "A man looking down at a baseball bat that he is holding in his hands"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.299466,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.300037,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.042515,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.026329,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.306223,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "458154",
+            "top1_score": 0.150116,
+            "top1_caption": "A man is holding a baseball bat next to a Military dressed man."
+          }
+        }
+      },
+      {
+        "query_id": "000000144784",
+        "image_path": "val2017/000000144784.jpg",
+        "gt_captions": [
+          "A hand with finger on a blender filled with liquid.",
+          "A metal blender on top of a stone counter.",
+          "A hand poised to push a button on a liquid filled blender.",
+          "A person presses the power button on a blender containing liquid",
+          "a close up of a blender on a counter being operated by a person"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "309017",
+            "top1_score": 0.336943,
+            "top1_caption": "A person presses the power button on a blender containing liquid"
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "787686",
+            "top1_score": 0.327583,
+            "top1_caption": "The blender is being used to liquify vegetables  for sauces during dinner preparation."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "309017",
+            "top1_score": 0.053309,
+            "top1_caption": "A person presses the power button on a blender containing liquid"
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "309017",
+            "top1_score": 0.121875,
+            "top1_caption": "A person presses the power button on a blender containing liquid"
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "309017",
+            "top1_score": 0.323277,
+            "top1_caption": "A person presses the power button on a blender containing liquid"
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "308471",
+            "top1_score": 0.14044,
+            "top1_caption": "A hand poised to push a button on a liquid filled blender."
+          }
+        }
+      },
+      {
+        "query_id": "000000199681",
+        "image_path": "val2017/000000199681.jpg",
+        "gt_captions": [
+          "A microwave with a stuffed animal inside reads 2:46.",
+          "The door to a microwave is open and is exposing a stuffed animal is propped inside.",
+          "A stuffed rabbit has been placed inside of a microwave oven.",
+          "A stuffed animal is inside of a microwave.",
+          "A stuffed toy bunny lurking inside a microwave oven."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "169332",
+            "top1_score": 0.368077,
+            "top1_caption": "A stuffed toy bunny lurking inside a microwave oven."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "169332",
+            "top1_score": 0.376821,
+            "top1_caption": "A stuffed toy bunny lurking inside a microwave oven."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "159834",
+            "top1_score": 0.084938,
+            "top1_caption": "A microwave with a stuffed animal inside reads 2:46."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "169332",
+            "top1_score": 0.332732,
+            "top1_caption": "A stuffed toy bunny lurking inside a microwave oven."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "169332",
+            "top1_score": 0.367619,
+            "top1_caption": "A stuffed toy bunny lurking inside a microwave oven."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "161493",
+            "top1_score": 0.166936,
+            "top1_caption": "A stuffed rabbit has been placed inside of a microwave oven."
+          }
+        }
+      },
+      {
+        "query_id": "000000267946",
+        "image_path": "val2017/000000267946.jpg",
+        "gt_captions": [
+          "A blue sign giving directions to a public toilet.",
+          "A sign for a public restroom is in more than one language.",
+          "a blue sign for a public toilet with arrows and figures",
+          "A street sign points in the direction of the bathroom.",
+          "A blue sign that is pointing to the restrooms."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "735786",
+            "top1_score": 0.363769,
+            "top1_caption": "a blue sign for a public toilet with arrows and figures"
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "735786",
+            "top1_score": 0.362976,
+            "top1_caption": "a blue sign for a public toilet with arrows and figures"
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "735786",
+            "top1_score": 0.089283,
+            "top1_caption": "a blue sign for a public toilet with arrows and figures"
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "735786",
+            "top1_score": 0.295236,
+            "top1_caption": "a blue sign for a public toilet with arrows and figures"
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "735786",
+            "top1_score": 0.357337,
+            "top1_caption": "a blue sign for a public toilet with arrows and figures"
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "731835",
+            "top1_score": 0.144697,
+            "top1_caption": "A blue sign giving directions to a public toilet."
+          }
+        }
+      },
+      {
+        "query_id": "000000351589",
+        "image_path": "val2017/000000351589.jpg",
+        "gt_captions": [
+          "A wooden bench sitting outside of a home.",
+          "The bench is in a shady area surrounded by plants",
+          "A bench that is sitting in the dirt.",
+          "a bench in the shade of a near by tree",
+          "A small bench in front of a building"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "572920",
+            "top1_score": 0.310976,
+            "top1_caption": "A small bench in front of a building"
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "572920",
+            "top1_score": 0.322373,
+            "top1_caption": "A small bench in front of a building"
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "568063",
+            "top1_score": 0.032067,
+            "top1_caption": "A wooden bench sitting outside of a home."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "568063",
+            "top1_score": 0.11011,
+            "top1_caption": "A wooden bench sitting outside of a home."
+          },
+          "E5_negclip_lite": {
+            "rank": 3,
+            "top1_id": "740378",
+            "top1_score": 0.33103,
+            "top1_caption": "A woman sits by herself on a park bench."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "572920",
+            "top1_score": 0.158185,
+            "top1_caption": "A small bench in front of a building"
+          }
+        }
+      },
+      {
+        "query_id": "000000394510",
+        "image_path": "val2017/000000394510.jpg",
+        "gt_captions": [
+          "A small child on a skateboard photoshopped over a street image.",
+          "A young boy with a gold shirt is on a purple skateboard.",
+          "A little kid that is on a skateboard.",
+          "A young boy riding a skateboard on a sidewalk",
+          "A young skateboarder isn't much bigger than his board."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "135296",
+            "top1_score": 0.380115,
+            "top1_caption": "A young boy with a gold shirt is on a purple skateboard."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "135296",
+            "top1_score": 0.368556,
+            "top1_caption": "A young boy with a gold shirt is on a purple skateboard."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "135296",
+            "top1_score": 0.064169,
+            "top1_caption": "A young boy with a gold shirt is on a purple skateboard."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "135296",
+            "top1_score": 0.264727,
+            "top1_caption": "A young boy with a gold shirt is on a purple skateboard."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "140507",
+            "top1_score": 0.382056,
+            "top1_caption": "A young boy riding a skateboard on a sidewalk"
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "135296",
+            "top1_score": 0.16491,
+            "top1_caption": "A young boy with a gold shirt is on a purple skateboard."
+          }
+        }
+      },
+      {
+        "query_id": "000000488664",
+        "image_path": "val2017/000000488664.jpg",
+        "gt_captions": [
+          "A long passenger train traveling over a rail bridge.",
+          "A train belches smoke and speeds down a city train track.",
+          "A train traveling on raised tracks near a town.",
+          "The blue train engine emits black smoke as it speeds down the track.",
+          "A blue and white training passing houses while emitting smoke."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.323755,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.338567,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.080046,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.126047,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.319922,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "185146",
+            "top1_score": 0.117129,
+            "top1_caption": "A blue and white training passing houses while emitting smoke."
+          }
+        }
+      }
+    ],
+    "failure_cases": [
+      {
+        "query_id": "000000062353",
+        "image_path": "val2017/000000062353.jpg",
+        "gt_captions": [
+          "Two giraffe walking next to each other in a forest.",
+          "Several giraffes stand with their necks stretched over a barrier toward a small crowd of people.",
+          "Several giraffes leaning over a fence towards some people.",
+          "Giraffes in a zoo, standing with their heads peeking over the fence, looking at people.",
+          "A photo looking at the back side of two giraffes check out the people."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 5,
+            "top1_id": "789090",
+            "top1_score": 0.364128,
+            "top1_caption": "A herd of giraffes in a zoo enclosure."
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "757985",
+            "top1_score": 0.348795,
+            "top1_caption": "Two giraffes and an ostrich at a zoo enclosure habitat."
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "757985",
+            "top1_score": 0.014434,
+            "top1_caption": "Two giraffes and an ostrich at a zoo enclosure habitat."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "243514",
+            "top1_score": 0.075006,
+            "top1_caption": "Giraffes in a zoo, standing with their heads peeking over the fence, looking at people."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "243514",
+            "top1_score": 0.358195,
+            "top1_caption": "Giraffes in a zoo, standing with their heads peeking over the fence, looking at people."
+          },
+          "E2_siglip_prefix": {
+            "rank": 5,
+            "top1_id": "757985",
+            "top1_score": 0.14695,
+            "top1_caption": "Two giraffes and an ostrich at a zoo enclosure habitat."
+          }
+        }
+      },
+      {
+        "query_id": "000000066817",
+        "image_path": "val2017/000000066817.jpg",
+        "gt_captions": [
+          "A white plate topped with meat veggies and rice with sauce.",
+          "This plate consists of rice with sauce and peas and meat patties on the side.",
+          "Meat and baked beans are on a plate. There's also a side of vegetables.",
+          "A meal of meat and corn and veggies on a white plate.",
+          "A meal of fried food, beans, rice, cream and fruit."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "165982",
+            "top1_score": 0.291704,
+            "top1_caption": "A white plate topped with food on a counter."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "414576",
+            "top1_score": 0.297734,
+            "top1_caption": "A meal of meat and corn and veggies on a white plate."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "414576",
+            "top1_score": 0.031591,
+            "top1_caption": "A meal of meat and corn and veggies on a white plate."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "414576",
+            "top1_score": 0.062814,
+            "top1_caption": "A meal of meat and corn and veggies on a white plate."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "414576",
+            "top1_score": 0.307412,
+            "top1_caption": "A meal of meat and corn and veggies on a white plate."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "413010",
+            "top1_score": 0.147425,
+            "top1_caption": "This plate consists of rice with sauce and peas and meat patties on the side."
+          }
+        }
+      },
+      {
+        "query_id": "000000151629",
+        "image_path": "val2017/000000151629.jpg",
+        "gt_captions": [
+          "A man holding a tennis racquet on a court.",
+          "A man swings a racket at a birdie.",
+          "A man takes a swing at a tennis ball on a grass court.",
+          "Guy in shorts holding tennis racket takes aim.",
+          "A young male tennis player in action on a court."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 14,
+            "top1_id": "376869",
+            "top1_score": 0.318818,
+            "top1_caption": "A tennis plare takes a swing very close to the net."
+          },
+          "E1_clip_prefix": {
+            "rank": 10,
+            "top1_id": "376869",
+            "top1_score": 0.321823,
+            "top1_caption": "A tennis plare takes a swing very close to the net."
+          },
+          "E4_clip_csls": {
+            "rank": 11,
+            "top1_id": "376869",
+            "top1_score": 0.004572,
+            "top1_caption": "A tennis plare takes a swing very close to the net."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 21,
+            "top1_id": "376869",
+            "top1_score": 0.02446,
+            "top1_caption": "A tennis plare takes a swing very close to the net."
+          },
+          "E5_negclip_lite": {
+            "rank": 6,
+            "top1_id": "623865",
+            "top1_score": 0.318772,
+            "top1_caption": "a man leaning over as he reaches for a white frisbee"
+          },
+          "E2_siglip_prefix": {
+            "rank": 5,
+            "top1_id": "549261",
+            "top1_score": 0.136398,
+            "top1_caption": "A young man hitting a ball with a racquet."
+          }
+        }
+      },
+      {
+        "query_id": "000000241297",
+        "image_path": "val2017/000000241297.jpg",
+        "gt_captions": [
+          "A train traveling down tracks next to a lush forest.",
+          "A train with a gold front is going down the tracks.",
+          "A train with a yellow front driving on a track.",
+          "A train with bright yellow engine on tracks beside tall leafy trees.",
+          "Train drives down the tracks along the treeline"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "393936",
+            "top1_score": 0.303307,
+            "top1_caption": "A diesel locomotive hauling some freight through the countyside"
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "393936",
+            "top1_score": 0.309395,
+            "top1_caption": "A diesel locomotive hauling some freight through the countyside"
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "393936",
+            "top1_score": 0.017437,
+            "top1_caption": "A diesel locomotive hauling some freight through the countyside"
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 2,
+            "top1_id": "393936",
+            "top1_score": 0.029949,
+            "top1_caption": "A diesel locomotive hauling some freight through the countyside"
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "539713",
+            "top1_score": 0.325699,
+            "top1_caption": "A train with bright yellow engine on tracks beside tall leafy trees."
+          },
+          "E2_siglip_prefix": {
+            "rank": 2,
+            "top1_id": "393936",
+            "top1_score": 0.099003,
+            "top1_caption": "A diesel locomotive hauling some freight through the countyside"
+          }
+        }
+      },
+      {
+        "query_id": "000000248112",
+        "image_path": "val2017/000000248112.jpg",
+        "gt_captions": [
+          "A man playing tennis is getting ready to swing at the ball.",
+          "A person standing on a court with a tennis racket.",
+          "Strike a pose, you hunky young tennis player!",
+          "A person is playing tennis on a dark grass court.",
+          "The man is swinging the tennis racket in the air."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 3,
+            "top1_id": "324027",
+            "top1_score": 0.337613,
+            "top1_caption": "A person playing a game of tennis with a racket."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "389458",
+            "top1_score": 0.334616,
+            "top1_caption": "A person is playing tennis on a dark grass court."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "389458",
+            "top1_score": 0.021808,
+            "top1_caption": "A person is playing tennis on a dark grass court."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "389458",
+            "top1_score": 0.070304,
+            "top1_caption": "A person is playing tennis on a dark grass court."
+          },
+          "E5_negclip_lite": {
+            "rank": 4,
+            "top1_id": "475346",
+            "top1_score": 0.335119,
+            "top1_caption": "a man on a field with a tennis racket in his hand"
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "389458",
+            "top1_score": 0.133216,
+            "top1_caption": "A person is playing tennis on a dark grass court."
+          }
+        }
+      },
+      {
+        "query_id": "000000249643",
+        "image_path": "val2017/000000249643.jpg",
+        "gt_captions": [
+          "A train traveling down train tracks near a train station.",
+          "A train running along a track near a station.",
+          "A train that is riding on tracks through a station.",
+          "A passenger train that is pulling into a station.",
+          "A train on its tracks with a Mannheim sign on the front."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 8,
+            "top1_id": "199475",
+            "top1_score": 0.295934,
+            "top1_caption": "A silver and green train pulling into a train station."
+          },
+          "E1_clip_prefix": {
+            "rank": 6,
+            "top1_id": "650973",
+            "top1_score": 0.310657,
+            "top1_caption": "Two trains sit idle in a train station"
+          },
+          "E4_clip_csls": {
+            "rank": 10,
+            "top1_id": "508090",
+            "top1_score": 0.005457,
+            "top1_caption": "A white train traveling through a train station."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 9,
+            "top1_id": "508090",
+            "top1_score": 0.030712,
+            "top1_caption": "A white train traveling through a train station."
+          },
+          "E5_negclip_lite": {
+            "rank": 13,
+            "top1_id": "199475",
+            "top1_score": 0.319187,
+            "top1_caption": "A silver and green train pulling into a train station."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "400153",
+            "top1_score": 0.128365,
+            "top1_caption": "A train that is riding on tracks through a station."
+          }
+        }
+      },
+      {
+        "query_id": "000000271457",
+        "image_path": "val2017/000000271457.jpg",
+        "gt_captions": [
+          "A bench sitting on to of a field of tall grass near water.",
+          "a big river flowing past some dry grass and reeds",
+          "Empty wooden bench by the shore brush on a lake.",
+          "The wooden bench has tall grass around it near the water.",
+          "A bench right next to some tall grass at the edge of a body of water."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "322509",
+            "top1_score": 0.333669,
+            "top1_caption": "A wooden bench sitting next to a large body of water."
+          },
+          "E1_clip_prefix": {
+            "rank": 1,
+            "top1_id": "578472",
+            "top1_score": 0.339294,
+            "top1_caption": "The wooden bench has tall grass around it near the water."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "578154",
+            "top1_score": 0.068287,
+            "top1_caption": "Empty wooden bench by the shore brush on a lake."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "578154",
+            "top1_score": 0.272157,
+            "top1_caption": "Empty wooden bench by the shore brush on a lake."
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "578154",
+            "top1_score": 0.336343,
+            "top1_caption": "Empty wooden bench by the shore brush on a lake."
+          },
+          "E2_siglip_prefix": {
+            "rank": 1,
+            "top1_id": "580368",
+            "top1_score": 0.17491,
+            "top1_caption": "A bench right next to some tall grass at the edge of a body of water."
+          }
+        }
+      },
+      {
+        "query_id": "000000289417",
+        "image_path": "val2017/000000289417.jpg",
+        "gt_captions": [
+          "A boy standing on skis in the snow.",
+          "A small boy skiing down a snowy hill",
+          "A boy on skis standing in the snow.",
+          "A little kid that is snowboarding in the snow.",
+          "A young person on skis posing for a picture."
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 2,
+            "top1_id": "343027",
+            "top1_score": 0.331909,
+            "top1_caption": "A woman wearing a white hat and white coat snowboarding down a slope."
+          },
+          "E1_clip_prefix": {
+            "rank": 2,
+            "top1_id": "343027",
+            "top1_score": 0.327803,
+            "top1_caption": "A woman wearing a white hat and white coat snowboarding down a slope."
+          },
+          "E4_clip_csls": {
+            "rank": 1,
+            "top1_id": "123526",
+            "top1_score": 0.002313,
+            "top1_caption": "A young person on skis posing for a picture."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "110551",
+            "top1_score": 0.034697,
+            "top1_caption": "A small boy skiing down a snowy hill"
+          },
+          "E5_negclip_lite": {
+            "rank": 1,
+            "top1_id": "110551",
+            "top1_score": 0.329339,
+            "top1_caption": "A small boy skiing down a snowy hill"
+          },
+          "E2_siglip_prefix": {
+            "rank": 15,
+            "top1_id": "106150",
+            "top1_score": 0.121217,
+            "top1_caption": "The skier is on the flat   with front ski edges together and holding ski poles."
+          }
+        }
+      },
+      {
+        "query_id": "000000390246",
+        "image_path": "val2017/000000390246.jpg",
+        "gt_captions": [
+          "A surfer teeters on the top of a wave.",
+          "A man in wetsuit on surfboard riding a wave.",
+          "A man riding on top of a wave on a surfboard.",
+          "Person is riding a surfboard in the ocean.",
+          "a person riding a surf board on a wave"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 19,
+            "top1_id": "471833",
+            "top1_score": 0.294331,
+            "top1_caption": "A man in black wetsuit on white surfboard riding wave."
+          },
+          "E1_clip_prefix": {
+            "rank": 18,
+            "top1_id": "36961",
+            "top1_score": 0.297693,
+            "top1_caption": "A surfer on a white board riding a small wave."
+          },
+          "E4_clip_csls": {
+            "rank": 31,
+            "top1_id": "33395",
+            "top1_score": -0.011234,
+            "top1_caption": "Two surfers riding a wave back to shore."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 30,
+            "top1_id": "519256",
+            "top1_score": 0.024909,
+            "top1_caption": "A surfer goes airborne on top of a wave in the ocean."
+          },
+          "E5_negclip_lite": {
+            "rank": 14,
+            "top1_id": "517045",
+            "top1_score": 0.305682,
+            "top1_caption": "A man riding a wave on a surfboard in the ocean."
+          },
+          "E2_siglip_prefix": {
+            "rank": 10,
+            "top1_id": "570909",
+            "top1_score": 0.114555,
+            "top1_caption": "A man surfing the waves on a surfboard in the ocean."
+          }
+        }
+      },
+      {
+        "query_id": "000000509656",
+        "image_path": "val2017/000000509656.jpg",
+        "gt_captions": [
+          "A zebra standing in tall grass near a building.",
+          "A zebra in the shade on a sunny day",
+          "There is a zebra in his habitat at the zoo.",
+          "A zebra standing in a grassy area with a building far behind it.",
+          "a zebra standing in the foreground  and another zebra standing behind"
+        ],
+        "methods": {
+          "E0_clip_raw": {
+            "rank": 5,
+            "top1_id": "813677",
+            "top1_score": 0.347745,
+            "top1_caption": "Two zebras that are facing different directions in an enclosure."
+          },
+          "E1_clip_prefix": {
+            "rank": 4,
+            "top1_id": "297208",
+            "top1_score": 0.348656,
+            "top1_caption": "The two zebras are looking through the fence."
+          },
+          "E4_clip_csls": {
+            "rank": 2,
+            "top1_id": "297208",
+            "top1_score": 0.012672,
+            "top1_caption": "The two zebras are looking through the fence."
+          },
+          "E4_clip_dual_softmax": {
+            "rank": 1,
+            "top1_id": "499337",
+            "top1_score": 0.059794,
+            "top1_caption": "A zebra standing in tall grass near a building."
+          },
+          "E5_negclip_lite": {
+            "rank": 2,
+            "top1_id": "295426",
+            "top1_score": 0.363492,
+            "top1_caption": "Two zebras relaxing in the fenced area of a zoo"
+          },
+          "E2_siglip_prefix": {
+            "rank": 2,
+            "top1_id": "309018",
+            "top1_score": 0.144577,
+            "top1_caption": "A large lone zebra poses for a picture inside a zoo"
+          }
+        }
+      }
+    ]
+  },
+  "winoground_group": {
+    "sampling_summary": {
+      "seed": 5489,
+      "max_per_stratum": 10,
+      "total_success": 35,
+      "total_failure": 365,
+      "sampled_success_ids": [
+        "133",
+        "161",
+        "162",
+        "224",
+        "249",
+        "290",
+        "305",
+        "332",
+        "337",
+        "90"
+      ],
+      "sampled_failure_ids": [
+        "14",
+        "144",
+        "19",
+        "244",
+        "253",
+        "254",
+        "27",
+        "280",
+        "348",
+        "60"
+      ]
+    },
+    "success_cases": [
+      {
+        "group_id": "133",
+        "caption_0": "there is a split banana",
+        "caption_1": "there is a banana split",
+        "collapsed_tag": "Both",
+        "fine_tag": "Altered POS",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3147,
+              0.2441,
+              0.2622,
+              0.3288
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3299,
+              0.2389,
+              0.2837,
+              0.345
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3158,
+              0.2317,
+              0.2715,
+              0.3288
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.1213,
+              0.0722,
+              0.0714,
+              0.1375
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "161",
+        "caption_0": "the child is throwing the adult the ball",
+        "caption_1": "the adult is throwing the child the ball",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2888,
+              0.2809,
+              0.2835,
+              0.2836
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3018,
+              0.2989,
+              0.2975,
+              0.3028
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2897,
+              0.2856,
+              0.2838,
+              0.2882
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.1372,
+              0.1023,
+              0.1305,
+              0.0936
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "162",
+        "caption_0": "a person underneath lights",
+        "caption_1": "lights underneath a person",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun Phrase",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2585,
+              0.2581,
+              0.2433,
+              0.2743
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2618,
+              0.2771,
+              0.2528,
+              0.2787
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2575,
+              0.2658,
+              0.251,
+              0.2713
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0838,
+              0.1017,
+              0.074,
+              0.1049
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "224",
+        "caption_0": "fish flying",
+        "caption_1": "fly fishing",
+        "collapsed_tag": "Both",
+        "fine_tag": "Altered POS",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2971,
+              0.2383,
+              0.2462,
+              0.2915
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.31,
+              0.2516,
+              0.2636,
+              0.3128
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.299,
+              0.2409,
+              0.2505,
+              0.2949
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.1231,
+              0.055,
+              0.0671,
+              0.1263
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "249",
+        "caption_0": "first the cream, then the jam",
+        "caption_1": "first the jam, then the cream",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3037,
+              0.2951,
+              0.295,
+              0.2963
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3058,
+              0.2983,
+              0.2955,
+              0.2984
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2814,
+              0.2746,
+              0.2774,
+              0.2802
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.1022,
+              0.0953,
+              0.1002,
+              0.1005
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "290",
+        "caption_0": "aerial view of a green tree in the brown freshly turned soil next to a green field",
+        "caption_1": "aerial view of a green tree in a green field next to the brown freshly turned soil",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun Phrase, Adjective-Color",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3492,
+              0.3438,
+              0.3446,
+              0.3462
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3544,
+              0.3444,
+              0.3497,
+              0.3463
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.34,
+              0.3184,
+              0.3331,
+              0.3168
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.1903,
+              0.1408,
+              0.1907,
+              0.142
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "305",
+        "caption_0": "visiting animals at home can be fun",
+        "caption_1": "animals visiting at home can be fun",
+        "collapsed_tag": "Both",
+        "fine_tag": "Altered POS",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2506,
+              0.2466,
+              0.2409,
+              0.2487
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2466,
+              0.2604,
+              0.2395,
+              0.2711
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2349,
+              0.2394,
+              0.2335,
+              0.2533
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0576,
+              0.0621,
+              0.0593,
+              0.0718
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "332",
+        "caption_0": "a mouse is touching a dog",
+        "caption_1": "a dog is touching a mouse",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.286,
+              0.2832,
+              0.281,
+              0.3075
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": true,
+            "group_success": false,
+            "scores": [
+              0.2858,
+              0.2788,
+              0.2868,
+              0.3136
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2857,
+              0.278,
+              0.283,
+              0.2992
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.1501,
+              0.1263,
+              0.1384,
+              0.1421
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "337",
+        "caption_0": "yellow duck shoes on",
+        "caption_1": "yellow duck on shoes",
+        "collapsed_tag": "Both",
+        "fine_tag": "Altered POS",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3266,
+              0.3192,
+              0.3221,
+              0.3374
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3433,
+              0.3348,
+              0.3378,
+              0.3504
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.3265,
+              0.3231,
+              0.3239,
+              0.3393
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.126,
+              0.1294,
+              0.1214,
+              0.1476
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "90",
+        "caption_0": "two humans and one wheel",
+        "caption_1": "two wheels and one human",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.2474,
+              0.2329,
+              0.2443,
+              0.2453
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2568,
+              0.2422,
+              0.2624,
+              0.2586
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2517,
+              0.2361,
+              0.2458,
+              0.2408
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0751,
+              0.0193,
+              0.089,
+              0.0716
+            ]
+          }
+        }
+      }
+    ],
+    "failure_cases": [
+      {
+        "group_id": "14",
+        "caption_0": "there is a mug in some grass",
+        "caption_1": "there is some grass in a mug",
+        "collapsed_tag": "Object",
+        "fine_tag": "Determiner-Numeral, Noun Phrase",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2853,
+              0.3092,
+              0.278,
+              0.3061
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.304,
+              0.2988,
+              0.296,
+              0.3012
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": true,
+            "group_success": false,
+            "scores": [
+              0.3065,
+              0.3013,
+              0.2888,
+              0.2939
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.141,
+              0.1163,
+              0.1094,
+              0.1165
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "144",
+        "caption_0": "there are more people than stools",
+        "caption_1": "there are more stools than people",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2129,
+              0.215,
+              0.2262,
+              0.2242
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2081,
+              0.2139,
+              0.2286,
+              0.2329
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2014,
+              0.2126,
+              0.2226,
+              0.2344
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0962,
+              0.0618,
+              0.067,
+              0.0426
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "19",
+        "caption_0": "there is more dirt than empty space in the jar",
+        "caption_1": "there is more empty space than dirt in the jar",
+        "collapsed_tag": "Object",
+        "fine_tag": "Noun",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2946,
+              0.311,
+              0.2912,
+              0.3103
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3104,
+              0.3232,
+              0.2992,
+              0.3138
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2852,
+              0.2963,
+              0.2748,
+              0.2873
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.1167,
+              0.1206,
+              0.1238,
+              0.1277
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "244",
+        "caption_0": "the knife on the left and the fork on the right",
+        "caption_1": "the knife on the right and the fork on the left",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Preposition",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3315,
+              0.2973,
+              0.3296,
+              0.2965
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3352,
+              0.3083,
+              0.3351,
+              0.3086
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3151,
+              0.2897,
+              0.3142,
+              0.289
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.1298,
+              0.1092,
+              0.1325,
+              0.1116
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "253",
+        "caption_0": "a large pink inflatable flamingo along with some other lilos on the water including one that is mostly white",
+        "caption_1": "a large white inflatable flamingo along with some other lilos on the water including one that is mostly pink",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Adjective-Color",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2744,
+              0.2963,
+              0.2637,
+              0.2848
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2774,
+              0.3015,
+              0.2759,
+              0.2973
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2773,
+              0.2948,
+              0.2756,
+              0.2897
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0934,
+              0.094,
+              0.0965,
+              0.0962
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "254",
+        "caption_0": "there are more eyes in the image than there are on a typical human",
+        "caption_1": "there are more eyes on a typical human than there are in the image",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Preposition Phrase",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2825,
+              0.2761,
+              0.2892,
+              0.2678
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2914,
+              0.2755,
+              0.3045,
+              0.2681
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2805,
+              0.2682,
+              0.2869,
+              0.2574
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.1206,
+              0.087,
+              0.1175,
+              0.0836
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "27",
+        "caption_0": "the person with the ponytail packs stuff and other buys it",
+        "caption_1": "the person with the ponytail buys stuff and other packs it",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Verb-Transitive",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": true,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2415,
+              0.2212,
+              0.2361,
+              0.229
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2461,
+              0.2325,
+              0.2583,
+              0.2464
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2373,
+              0.2194,
+              0.2482,
+              0.2315
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": true,
+            "group_success": false,
+            "scores": [
+              0.0174,
+              0.0129,
+              0.0591,
+              0.0673
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "280",
+        "caption_0": "the large person is drinking from the small coffee cup",
+        "caption_1": "the small person is drinking from the large coffee cup",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Adjective-Size",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": true,
+            "group_success": false,
+            "scores": [
+              0.2636,
+              0.2622,
+              0.252,
+              0.2554
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2934,
+              0.2745,
+              0.2797,
+              0.2565
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2788,
+              0.2646,
+              0.267,
+              0.2468
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": true,
+            "image_success": true,
+            "group_success": true,
+            "scores": [
+              0.1395,
+              0.0829,
+              0.1012,
+              0.1037
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "348",
+        "caption_0": "A dog and a person with their feet hanging out of a car window",
+        "caption_1": "A dog with their feet hanging out of a car window and a person",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Scope, Conjunction Phrase",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3246,
+              0.2924,
+              0.3289,
+              0.2959
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3357,
+              0.3043,
+              0.3373,
+              0.301
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.3362,
+              0.314,
+              0.3305,
+              0.3021
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.171,
+              0.1285,
+              0.1734,
+              0.1113
+            ]
+          }
+        }
+      },
+      {
+        "group_id": "60",
+        "caption_0": "someone has loaded their plate with one of the toast slices and two of the eggs",
+        "caption_1": "someone has loaded their plate with two of the toast slices and one of the eggs",
+        "collapsed_tag": "Relation",
+        "fine_tag": "Determiner-Numeral",
+        "models": {
+          "clip_vit_b32__raw": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2278,
+              0.2801,
+              0.2289,
+              0.2797
+            ]
+          },
+          "clip_vit_b32__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2617,
+              0.3063,
+              0.2638,
+              0.3056
+            ]
+          },
+          "negclip_lite__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.2678,
+              0.3024,
+              0.2698,
+              0.3015
+            ]
+          },
+          "siglip_vit_b16__photo_prefix": {
+            "text_success": false,
+            "image_success": false,
+            "group_success": false,
+            "scores": [
+              0.0669,
+              0.1124,
+              0.0682,
+              0.1151
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

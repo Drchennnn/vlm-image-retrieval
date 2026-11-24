@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 T0、Round 1（T1+T2）、Round 2（T3）、Round 3（T4：Phase 1 1K dev 全量实验）及 **Round 4（T5：Phase 2 NegCLIP-lite 3K train 硬负例轻量适应，dev 选定 `cfg1_text_adapter_lr1e5_hn0.5` ep3，全配置已冻结至 `configs/frozen_all.json`，17 项单测全通过）**。下一步进入 **Round 5（T6）**：按冻结配置一次性运行 held-out 1K `test`、Winoground 诊断、1,000 次 paired bootstrap CI、分层失败案例与终稿图表。
+已完成 T0 及 Round 1–5（T1–T6 全部实验闭环）：3 模型基线 + 5-fold CV 超参调优 + 3 路降维/聚类/Hubness 诊断 + Phase 2 NegCLIP-lite 适应 + 冻结后一次性 held-out 1K `test` 与完整 400 组 Winoground 终测 + 1,000 次 paired bootstrap 95% CI + 分层失败案例 + 全部 9 张图表（`reports/final_test_summary.json`、`reports/stratified_case_analysis.json`、`reports/figures/`）。下一步进入 **Round 6**：完善英文 `README.md` 复现命令与目录说明、生成报告汇总表并做端到端复现自检，随后撰写英文最终报告 PDF 与录 5 分钟 Panopto 视频。

@@ -12,7 +12,7 @@
 | T3 | 核心检索、计分、新特征、重排与合成单元测试 | done | T0（可与 T1/T2 并行） | Antigravity / 自审（14 项合成单测 + CLI 端到端 smoke） | 完成 `retrieval / metrics / features / rerank / evaluate / cli` 模块；`pytest` 14/14 通过（含多正例、轴交换、平分、Winoground 24 排列=4/24、Hubness 救援、5-fold image-grouped 无泄漏、特征仅 dev 拟合）；CLI `evaluate` 与双向 `search` smoke 通过 |
 | T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | done | T1–T3 | Antigravity / 自审（含可视化图复核与 3 路降维对照） | 在 1,000 图 / 5,005 描述 dev 全库完成 3 模型 × 2 策略基线、5-fold CV 超参调优、Modality Gap/Hubness/PCA/K-Means 诊断；冻结配置 `configs/frozen_phase1.json`，汇总 `reports/dev_phase1_summary.json` 及 4 张图；`pytest` 14/14 通过 |
 | T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | done | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | Antigravity / 自审（3 项新增单测 + 3 组受控消融） | 独立 3K `train` 集完成 3 组受控配置 × 3 epochs（总耗时 415.9s，本地 M1 Pro MPS，仅训 4.51% 参数）；`dev` 选定 `cfg1_text_adapter_lr1e5_hn0.5`（ep3）：dev cosine Mean R@1 `60.64% → 62.74% (+2.11%)`，Dual-Softmax `67.90% → 68.55%`，dev 组合性硬负例准确率 `65.19% → 88.27% (+23.08%)`；全配置已冻结至 `configs/frozen_all.json` |
-| T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | todo | T4 done 且 T5 为 done/deferred | 待认领 / 待分配 | 完整 run bundles、95% CI、全部最终图表（含缺失访问显式说明） |
+| T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | done | T4 done 且 T5 为 done/deferred | Antigravity / 自审（含 4 张终稿图目视核查与 400 组 Winoground 完整校验） | 冻结配置一次性跑完 1K held-out `test`（5,002 描述）与官方 400 组 Winoground（`is_partial=false`）；生成 1,000 次 paired bootstrap 95% CI、分层抽样失败案例 `reports/stratified_case_analysis.json`、总汇总 `reports/final_test_summary.json` 及 4 张终稿图；`CLIP ViT-B/32` Dual-SM 68.86%（+8.14%）、`SigLIP` Dual-SM 80.44%（+5.23%）、`NegCLIP-lite` Dual-SM 69.51% & test 硬负例 88.02%（+22.43%）；Winoground Group: RN50 7.25% / ViT-B/32 8.75% / NegCLIP-lite 9.00% / SigLIP 10.25% |
 | T7 | 英文最终报告 PDF 与可复现代码清理 | todo | T6 | 待认领 / 待分配 | 对照 100 分 Rubric 逐项核对；全部图表与表格可溯源至 run ID |
 | T8 | ≤5 分钟 Panopto 演示视频、Code ZIP 打包与 Canvas 三项提交 | todo | T7 | 待认领 / 待分配 | 独立复现验证、`ProjectGroup_X_Code.zip`、视频嵌入、组员贡献声明 |
 
@@ -94,6 +94,24 @@
   - `cfg3_text_only_lr2e5_hn1.0`（ep2，去 Adapter 消融）：`dev_cos = 61.50%`，`dev_comp = 91.57%`，`dev_DS = 69.43%`。
 - **冻结与产物**：权重保存至 `artifacts/checkpoints/negclip_lite_best.pt`（不入库）；全实验配置冻结至 `configs/frozen_all.json`；结果汇总 `reports/dev_phase2_summary.json`；训练曲线图 `reports/figures/dev_phase2_negclip_lite.png`。
 - **下一步**：Round 5（T6）在冻结配置 `configs/frozen_all.json` 下一次性运行 **held-out test（1,000 图 / 5,002 描述）** 与 **Winoground**（如已授权），计算 paired bootstrap 95% CI、分层失败案例与全部终稿图表。
+
+### 2026-11-24 — Round 5：冻结配置一次性 Held-out Test（1K）与完整 400 组 Winoground 终测（T6）
+- **运行脚本**：`.venv/bin/python scripts/run_round5_final_eval.py`（总耗时 `296.9s`，峰值 RSS `5,544.6 MB`，严格使用 `configs/frozen_all.json` 与 `dev`-fit 变换）。
+- **Held-out 1K COCO `test`（1,000 图 / 5,002 描述，Mean R@1 = 0.5×(T2I+I2T)）**：
+  - `CLIP ViT-B/32`：`raw` 59.80%（49.70 / 69.90）→ `prefix` 60.72%（49.94 / 71.50，与 raw 差异在 test 上不显著：`p=0.614 / 0.132`）→ `Aligner(dev-fit)` 59.43%（**T2I 显著 +1.62% `p=0.022`，I2T 显著 -4.20% `p<0.001`**）→ `CSLS(k=5)` **66.97% (+6.25%, `p<0.001`)** → `Dual-Softmax(τ=0.02)` **68.86% (+8.14%, `p<0.001`)**。
+  - `CLIP RN50`：`raw` 59.60% → `prefix` 59.85% → `CSLS(k=5)` **66.69% (+6.84%)** → `Dual-Softmax` **68.24% (+8.39%, `p<0.001`)**。
+  - `SigLIP ViT-B/16`：`raw` 74.44% → `prefix` 75.21% → `CSLS(k=10)` **78.93% (+3.72%)** → `Dual-Softmax` **80.44% (+5.23%, `p<0.001`)**（T2I 71.47% / I2T 89.40%）。
+  - `NegCLIP-lite`（Phase 2 `cfg1` ep3）：Cosine **62.33%**（T2I **53.46%, +3.52% `p<0.001`** / I2T 71.20%）→ `CSLS` **68.37%** → `Dual-Softmax` **69.51%**（T2I 较 Frozen CLIP+DS 仍显著 **+1.20%**）；test 组合性硬负例准确率 **`65.59% → 88.02% (+22.43%)`**。
+  - Held-out `test` 3 路降维（dev-fit）与 Hubness 完全复现 dev 规律：`Dual-Softmax` 将 `CLIP ViT-B/32` test 最大 hub 从 `407` 压至 `110`（偏度 `2.15 → -0.04`）；32d/64d 时 `Modality-Centered PCA` 大幅领先 `Uncentered SVD` 与 `Naive PCA`。
+- **完整 400 组 Winoground 组合性诊断（严格 evaluation-only，`parquet_sha256=499e4963...`）**：
+  - 随机基线：Text 25.00% / Image 25.00% / Group 16.67%。
+  - `CLIP ViT-B/32 (raw)`：Text **31.25%** / Image **11.00%** / Group **8.75%**（与 Thrush et al. CVPR 2022 报告的 30.75 / 10.50 / 8.00 高度吻合）。
+  - `CLIP ViT-B/32 (prefix)`：29.50% / 12.00% / 8.50%；`CLIP RN50 (raw/prefix)`：26.00/11.25/8.50% & 26.50/11.50/7.25%。
+  - `NegCLIP-lite (prefix)`：Text 28.50% / Image **13.00% (+1.00%)** / Group **9.00% (+0.50%)**（其中 `Relation` 4.7%→6.0%、`Both` 26.9%→30.8%）。
+  - `SigLIP ViT-B/16 (prefix)`：Text **34.00%** / Image **15.00%** / Group **10.25%**。
+  - 关键洞见：即便在 COCO 上达到 80.44% R@1 的 SigLIP、或域内硬负例提升 +22.4% 的 NegCLIP-lite，在 Winoground 上 Group 分数仍全面低于随机 16.67%，证明冻结视觉双塔在细粒度视觉关系绑定上的结构性瓶颈。
+- **产物**：`reports/final_test_summary.json`、`reports/stratified_case_analysis.json`、4 张终稿图（`reports/figures/final_*.png`，已目视核查）、`artifacts/runs/test/` 与 `artifacts/runs/winoground/` 完整 run bundles。
+- **下一步**：Round 6（T7 准备）完善英文 `README.md` 复现说明、生成报告直接可用的指标总表与图表索引并执行端到端复现自检。
 
 ---
 

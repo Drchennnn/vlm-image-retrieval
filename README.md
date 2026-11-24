@@ -4,7 +4,7 @@ CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team
 
 ## Status
 
-**Round 4 (T5 — Phase 2 NegCLIP-lite adaptation & full configuration freeze) completed**: all Phase 1 (`CLIP ViT-B/32`, `CLIP RN50`, `SigLIP ViT-B/16`, 5-fold CV `CSLS` / `Dual-Softmax` / `ModalityAligner`, 3-way DimRed, K-Means, hubness) and Phase 2 (`NegCLIP-lite` compositional hard-negative adaptation trained on 3K `train`, selected on 1K `dev`, improving dev cosine Mean R@1 `60.64% → 62.74%` and dev hard-negative accuracy `65.19% → 88.27%`) configurations are now frozen in `configs/frozen_all.json` with **17/17 passing unit tests**. One-shot held-out `test` and Winoground evaluation (Round 5) is next.
+**Round 5 (T6 — one-shot held-out test & full 400-group Winoground evaluation) completed**: all frozen Phase 1 and Phase 2 configurations have been evaluated once on the held-out 1,000-image / 5,002-caption COCO `test` split and all 400 official Winoground groups with 1,000× paired bootstrap 95% CIs, stratified error-analysis cases (`reports/stratified_case_analysis.json`), and publication-ready figures (`reports/figures/final_*.png`). Key test highlights: **Dual-Softmax** lifts Mean R@1 by **+8.14% on CLIP ViT-B/32 (60.72% → 68.86%)**, **+8.39% on CLIP RN50 (59.85% → 68.24%)**, and **+5.23% on SigLIP ViT-B/16 (75.21% → 80.44%)** (all $p < 0.001$); **NegCLIP-lite** lifts CLIP ViT-B/32 held-out cosine Mean R@1 to **62.33%** (Dual-Softmax **69.51%**) and held-out hard-negative accuracy **65.59% → 88.02%**, while all dual-encoder models remain below random chance (16.67%) on Winoground Group Score (**7.25%–10.25%**). Round 6 (reproducibility polish & report summary tables) is next.
 
 ## Overview
 
