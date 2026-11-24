@@ -4,7 +4,7 @@ CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team
 
 ## Status
 
-**Round 2 (T3) completed**: core package (`data`, `model`, `cache`, `retrieval`, `metrics`, `features`, `rerank`, `evaluate`, `cli`) implemented and verified with **14/14 passing synthetic unit tests** (multi-positive I2T, tie-breaking, chunked consistency, Winoground 24-permutation check, hubness rescue, 5-fold image-grouped CV, and anti-leakage guards) plus end-to-end CLI smoke checks. Full dev-set Phase 1 experiments (Round 3) and Phase 2 adaptation (Round 4) are next.
+**Round 3 (T4 — Phase 1 dev experiments) completed**: all three pretrained backbones (`CLIP ViT-B/32`, `CLIP RN50`, `SigLIP ViT-B/16`) have been encoded and evaluated on the full 1,000-image / 5,005-caption COCO `dev` split with image-grouped 5-fold CV tuning (`CSLS`, `Dual-Softmax`, `ModalityAligner`), 3-mode PCA/SVD dimensionality reduction, K-Means cluster diagnostics, and hubness analysis (`reports/dev_phase1_summary.json`, `configs/frozen_phase1.json`, and 4 diagnostic figures in `reports/figures/`). Phase 2 compositional hard-negative adaptation (Round 4) and final held-out test / Winoground evaluation (Round 5) are next.
 
 ## Overview
 

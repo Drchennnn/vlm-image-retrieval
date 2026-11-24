@@ -10,7 +10,7 @@
 | T1 | 数据获取/条款确认、split manifest 校验与环境锁定 | done | T0 | Antigravity / 自审（含合成单测） | 官方 COCO val2017（5,000 图，0 缺失/损坏/重复内容）切分为 `3,000 train (15,007 caps) / 1,000 dev (5,005 caps) / 1,000 test (5,002 caps)`；ID 清单入库 `configs/splits/coco2017_split_ids.json`；依赖锁定至 `requirements.txt`（78 包） |
 | T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | done | T1 | Antigravity / 自审（含缓存往返校验） | 3 模型全部在 M1 Pro MPS 加载并完成 100 图/501 文本 smoke；`cache_roundtrip_exact=true`；单模型编码 1.1–2.4s，峰值 RSS 2060.5 MB；`pytest` 4/4 通过 |
 | T3 | 核心检索、计分、新特征、重排与合成单元测试 | done | T0（可与 T1/T2 并行） | Antigravity / 自审（14 项合成单测 + CLI 端到端 smoke） | 完成 `retrieval / metrics / features / rerank / evaluate / cli` 模块；`pytest` 14/14 通过（含多正例、轴交换、平分、Winoground 24 排列=4/24、Hubness 救援、5-fold image-grouped 无泄漏、特征仅 dev 拟合）；CLI `evaluate` 与双向 `search` smoke 通过 |
-| T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | todo | T1–T3 | 待认领 / 待分配 | dev 对比表、Modality Gap/PCA/K-Means/Hubness 图、CV 选参记录；冻结 Phase 1 配置 |
+| T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | done | T1–T3 | Antigravity / 自审（含可视化图复核与 3 路降维对照） | 在 1,000 图 / 5,005 描述 dev 全库完成 3 模型 × 2 策略基线、5-fold CV 超参调优、Modality Gap/Hubness/PCA/K-Means 诊断；冻结配置 `configs/frozen_phase1.json`，汇总 `reports/dev_phase1_summary.json` 及 4 张图；`pytest` 14/14 通过 |
 | T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | deferred | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | 待认领 / 待分配 | Day 4 决策是否激活；若激活，仅在 dev 选参并冻结后进入 T6 |
 | T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | todo | T4 done 且 T5 为 done/deferred | 待认领 / 待分配 | 完整 run bundles、95% CI、全部最终图表（含缺失访问显式说明） |
 | T7 | 英文最终报告 PDF 与可复现代码清理 | todo | T6 | 待认领 / 待分配 | 对照 100 分 Rubric 逐项核对；全部图表与表格可溯源至 run ID |
@@ -67,6 +67,20 @@
   - `.venv/bin/pytest -v`：**14 passed in 6.92s**（覆盖 `test_data_and_cache.py`、`test_retrieval_and_metrics.py`、`test_features_and_rerank.py`、`test_evaluate_and_cli.py`，含 Winoground 24 排列严格 25%/25%/16.67% 校验、合成 Hubness 注入下 CSLS 与 Dual-Softmax 从 16.67% 恢复至 100% R@1、防 test 泄漏断言）。
   - CLI smoke：`evaluate`（CSLS on `smoke_dev100` 生成完整 run bundle `artifacts/smoke_runs/smoke_cli_check`）与双向 `search`（`--image-id` I2T 与 `--text` T2I）均通过。
 - **下一步**：Round 3（T4）在完整 1,000 图 `dev` 集（5,005 条描述）上运行 Phase 1 全量基线、数据/降维聚类分析、新特征与 5-fold CV 超参选择。
+
+### 2026-11-24 — Round 3：Phase 1 完整 1,000 图 Dev 实验、5-Fold CV 与表征诊断（T4）
+- **运行脚本**：`.venv/bin/python scripts/run_round3_dev.py`（严格仅在 `dev` 划分 1,000 图 / 5,005 描述执行，未触碰 `test`）。
+- **核心 dev 全库结果（Mean R@1 = 0.5×(T2I R@1 + I2T R@1)）**：
+  - `CLIP ViT-B/32`（InfoNCE / ViT）：`raw` 60.25%（T2I 50.11 / I2T 70.40）→ `photo_prefix` 60.64% → `CSLS(k=5)` **65.86% (+5.22%)** → `Dual-Softmax(τ=0.02, prior_weighted)` **67.90% (+7.26%)**。
+  - `CLIP RN50`（InfoNCE / CNN）：`raw` 57.58%（46.65 / 68.50）→ `photo_prefix` 59.02% → `CSLS(k=5)` **65.93% (+6.91%)** → `Dual-Softmax(τ=0.02, prior_weighted)` **68.16% (+9.14%)**。
+  - `SigLIP ViT-B/16`（Sigmoid / ViT）：`raw` 74.53%（66.75 / 82.30）→ `photo_prefix` 75.59%（截断 1/5,005 条）→ `CSLS(k=10)` **78.62% (+3.03%)** → `Dual-Softmax(τ=0.02, prior_weighted)` **79.99% (+4.40%)**。
+- **关键科学发现（机理洞见）**：
+  1. **Modality Gap 与方向不对称效应**：原始 `CLIP ViT-B/32` 图文质心 L2 距离高达 `0.812`（`SigLIP` 达 `1.047`）；`ModalityAligner` 将质心距离压缩至 `0.022` 后，**CLIP 的 T2I R@1 提升**（ViT-B/32: 49.47→51.29%；RN50: 47.33→49.45%），但 **I2T R@1 下降**（71.80→65.70%），导致双向均值略降，解释了全局去中心重归一化对一对多描述结构的扰动。
+  2. **Hubness 显著抑制**：`CLIP ViT-B/32` T2I Top-10 候选最大出现次数由 `271`（期望 50.05，偏度 `1.59`，Gini `0.391`）经 `Dual-Softmax` 降至 `109`（偏度 `-0.15`，Gini `0.202`）。
+  3. **跨模态降维几何发现（5-fold CV 3 路对比）**：朴素拼接 `Naive PCA` 因 5:1 文本占比与 Modality Gap 偏移原点，256 维时 I2T R@1 暴跌至 50.6%；平衡 `Uncentered SVD` 在 256 维保持几乎无损（Mean R@1 79.58% vs 80.24%）；而极低维（64d / 32d）时，`Modality-Centered PCA` 先消除模态偏移，反超 `Uncentered SVD` **+5.8%（64d）至 +15.4%（32d）**！
+  4. **K-Means 语义聚类难度差异**：`K=8`（Silhouette=0.125）时，运动/球场类场景（Cluster 2，如棒球/网球）I2T R@1 仅 `49.2%`，而食物/室内静物类（Cluster 7/1）达 `81.2%–84.5%`。
+- **产物与验证**：`configs/frozen_phase1.json`、`reports/dev_phase1_summary.json`、`reports/figures/dev_*.png`（4 张图已人工目视核查）、`artifacts/runs/dev/`（6 个基线 run bundles）；`pytest` **14/14 passed**。
+- **下一步**：Round 4（T5）执行 Phase 2 轻量适应（NegCLIP-lite：在独立 3K `train` 集构造组合性硬负例，冻结图像主干、微调文本端，在 `dev` 集选参并冻结最终配置）。
 
 ---
 

@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 T0（文档重构与 v2 协议升级）、Round 1（T1 + T2：COCO `val2017` 5,000 图 3K/1K/1K 互斥划分、环境锁定、3 模型 MPS smoke）及 Round 2（T3：`retrieval / metrics / features / rerank / evaluate / cli` 全量实现、14 项合成单测全通过、CLI 双向检索与评测 smoke 通过）。下一步进入 **Round 3（T4）**：在完整 1,000 图 `dev` 集上执行 Phase 1 全量多模型/特征/降维聚类/5-fold CV 实验。
+已完成 T0、Round 1（T1+T2）、Round 2（T3，14 项单测全通过）及 **Round 3（T4：完整 1K dev 集 3 模型基线 + 5-fold CV 超参调优 + Modality Gap/Hubness/3 路降维/K-Means 诊断，配置已冻结至 `configs/frozen_phase1.json`）**。下一步进入 **Round 4（T5）**：在独立 3K `train` 集执行 Phase 2 NegCLIP-lite 组合性硬负例轻量适应并在 `dev` 集选参。

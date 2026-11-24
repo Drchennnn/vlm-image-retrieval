@@ -80,12 +80,13 @@ def test_modality_aligner_closes_gap_and_prevents_test_leakage() -> None:
 
 def test_cross_modal_pca_and_clustering() -> None:
     _, v_dev, t_dev = _make_synthetic_split(n_images=25, caps_per_img=2, dim=16, seed=3)
-    pca = CrossModalPCA(n_components=8, seed=5489).fit(v_dev, t_dev)
-    vp, tp = pca.transform(v_dev, t_dev)
-    assert vp.shape == (25, 8)
-    assert tp.shape == (50, 8)
-    assert np.allclose(np.linalg.norm(vp, axis=1), 1.0, atol=1e-5)
-    assert 0.0 < pca.explained_variance_ratio_sum <= 1.0001
+    for mode in ("naive_pca", "uncentered_svd", "modality_centered_pca"):
+        pca = CrossModalPCA(n_components=8, seed=5489, mode=mode).fit(v_dev, t_dev)
+        vp, tp = pca.transform(v_dev, t_dev)
+        assert vp.shape == (25, 8)
+        assert tp.shape == (50, 8)
+        assert np.allclose(np.linalg.norm(vp, axis=1), 1.0, atol=1e-5)
+        assert 0.0 < pca.explained_variance_ratio_sum <= 1.0001
 
     cl = analyze_semantic_clusters(v_dev, [100.0] * 25, n_clusters=4, seed=5489)
     assert cl["n_clusters"] == 4

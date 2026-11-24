@@ -7,12 +7,13 @@ from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.metrics import silhouette_score
 
 from .model import l2_normalize_checked
 
 VALID_ALIGN_MODES = ("center", "zca_per_modality", "zca_shared")
+VALID_DIMRED_MODES = ("naive_pca", "uncentered_svd", "modality_centered_pca")
 
 
 def _zca_matrix(centered: np.ndarray, eps: float) -> np.ndarray:
@@ -81,39 +82,69 @@ class ModalityAligner:
 
 
 class CrossModalPCA:
-    """Fit-on-dev joint PCA dimensionality reduction preserving shared cross-modal space."""
+    """Fit-on-dev cross-modal dimensionality reduction supporting three geometric regimes:
+    - 'naive_pca': standard PCA on concatenated [V; T] (illustrates origin-shift distortion under Modality Gap)
+    - 'uncentered_svd': balanced TruncatedSVD preserving the hypersphere origin
+    - 'modality_centered_pca': ModalityAligner('center') followed by balanced PCA (maximizes low-dim semantic variance)
+    """
 
-    def __init__(self, n_components: int, seed: int = 5489) -> None:
+    def __init__(self, n_components: int, seed: int = 5489, mode: str = "uncentered_svd") -> None:
         if n_components <= 0:
             raise ValueError("n_components must be positive")
+        if mode not in VALID_DIMRED_MODES:
+            raise ValueError(f"Unsupported dimred mode '{mode}'; expected one of {VALID_DIMRED_MODES}")
         self.n_components = int(n_components)
         self.seed = int(seed)
-        self.pca_: PCA | None = None
+        self.mode = mode
+        self.projector_: PCA | TruncatedSVD | None = None
+        self.aligner_: ModalityAligner | None = None
+
+    def _balance_stack(self, v: np.ndarray, t: np.ndarray) -> np.ndarray:
+        """Subsample the larger modality deterministically to prevent 5:1 caption dominance."""
+        if len(t) > len(v):
+            idx = np.linspace(0, len(t) - 1, num=len(v), dtype=np.int64)
+            t = t[idx]
+        elif len(v) > len(t):
+            idx = np.linspace(0, len(v) - 1, num=len(t), dtype=np.int64)
+            v = v[idx]
+        return np.concatenate([v, t], axis=0)
 
     def fit(self, img_embs: np.ndarray, cap_embs: np.ndarray) -> "CrossModalPCA":
         v = l2_normalize_checked(img_embs)
         t = l2_normalize_checked(cap_embs)
         if v.shape[1] != t.shape[1]:
             raise ValueError("Image and caption embedding dimensions must match")
-        max_dim = min(v.shape[1], v.shape[0] + t.shape[0])
-        if self.n_components > max_dim:
-            raise ValueError(f"n_components={self.n_components} exceeds max_dim={max_dim}")
-        stacked = np.concatenate([v, t], axis=0)
-        self.pca_ = PCA(n_components=self.n_components, random_state=self.seed)
-        self.pca_.fit(stacked)
+
+        if self.mode == "naive_pca":
+            stacked = np.concatenate([v, t], axis=0)
+            self.aligner_ = None
+            self.projector_ = PCA(n_components=self.n_components, random_state=self.seed).fit(stacked)
+        elif self.mode == "uncentered_svd":
+            stacked = self._balance_stack(v, t)
+            self.aligner_ = None
+            self.projector_ = TruncatedSVD(n_components=self.n_components, random_state=self.seed).fit(stacked)
+        elif self.mode == "modality_centered_pca":
+            self.aligner_ = ModalityAligner(mode="center").fit(v, t)
+            vc, tc = self.aligner_.transform(v, t)
+            stacked = self._balance_stack(vc, tc)
+            self.projector_ = PCA(n_components=self.n_components, random_state=self.seed).fit(stacked)
         return self
 
     @property
     def explained_variance_ratio_sum(self) -> float:
-        if self.pca_ is None:
+        if self.projector_ is None:
             raise RuntimeError("CrossModalPCA must be fit() first")
-        return float(np.sum(self.pca_.explained_variance_ratio_))
+        return float(np.sum(self.projector_.explained_variance_ratio_))
 
     def transform(self, img_embs: np.ndarray, cap_embs: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-        if self.pca_ is None:
+        if self.projector_ is None:
             raise RuntimeError("CrossModalPCA must be fit() before transform()")
-        v_proj = self.pca_.transform(np.asarray(img_embs, dtype=np.float32)).astype(np.float32)
-        t_proj = self.pca_.transform(np.asarray(cap_embs, dtype=np.float32)).astype(np.float32)
+        v_in = np.asarray(img_embs, dtype=np.float32)
+        t_in = np.asarray(cap_embs, dtype=np.float32)
+        if self.aligner_ is not None:
+            v_in, t_in = self.aligner_.transform(v_in, t_in)
+        v_proj = self.projector_.transform(v_in).astype(np.float32)
+        t_proj = self.projector_.transform(t_in).astype(np.float32)
         return l2_normalize_checked(v_proj), l2_normalize_checked(t_proj)
 
 

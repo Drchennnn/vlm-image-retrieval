@@ -1,0 +1,44 @@
+{
+  "protocol_version": "v2",
+  "frozen_from_split": "dev",
+  "dev_manifest_sha256": "901400596ba90b2db183b6ac8e9c3a4f7decf0c42a6fd8a60c37e51ec3d9c395",
+  "seed": 5489,
+  "models": {
+    "clip_vit_b32": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_shared",
+        "eps": 0.05
+      },
+      "best_csls_k": 5,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    },
+    "clip_rn50": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_per_modality",
+        "eps": 0.05
+      },
+      "best_csls_k": 5,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    },
+    "siglip_vit_b16": {
+      "selected_policy": "photo_prefix",
+      "best_align_params": {
+        "mode": "zca_per_modality",
+        "eps": 0.05
+      },
+      "best_csls_k": 10,
+      "best_dual_softmax_params": {
+        "temperature": 0.02,
+        "mode": "prior_weighted"
+      }
+    }
+  }
+}
