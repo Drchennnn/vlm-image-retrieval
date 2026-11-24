@@ -4,7 +4,7 @@ CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team
 
 ## Status
 
-**Architecture and v2 evaluation protocol finalized; implementation and experiments have not started yet.** No dataset download, locked Python environment, model execution, or experimental metric has been verified yet.
+**Round 1 (T1 + T2) completed**: official COCO `val2017` verified and split (`3,000 train / 1,000 dev / 1,000 test`, protocol `coco2017-custom-3k-train-1k-dev-1k-test-v2`), Python 3.12 dependencies locked in `requirements.txt`, and 100-image smoke tests passed on Apple Silicon MPS across `CLIP ViT-B/32`, `CLIP RN50`, and `SigLIP ViT-B/16`. Full dev/test retrieval experiments and Phase-2 adaptation are upcoming.
 
 ## Overview
 

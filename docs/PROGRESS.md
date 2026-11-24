@@ -7,8 +7,8 @@
 | ID | 任务 | 状态 | 依赖 | 执行者 / 审查者 | 验收证据或下一步 |
 |---|---|---|---|---|---|
 | T0 | 初始审核、英文 Proposal、文档架构精简与 v2 协议升级 | done | 原始题目 + Canvas Rubric | Codex（10/20）/ Antigravity（11/24） | 旧文档归档至 `docs/archive/`；合并 `REQUIREMENTS.md`、`PLAN.md`、`EVALUATION.md` v2；链接与 git 状态核查通过 |
-| T1 | 数据获取/条款确认、split manifest 校验与环境锁定 | todo | T0 | 待认领 / 待分配 | Day 1 确认 Flickr30k 或直切 COCO val2017；保存 manifest + SHA256；锁定 `requirements.txt` |
-| T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | todo | T1 | 待认领 / 待分配 | 权重校验、截断统计、缓存往返一致、设备耗时与内存实测 |
+| T1 | 数据获取/条款确认、split manifest 校验与环境锁定 | done | T0 | Antigravity / 自审（含合成单测） | 官方 COCO val2017（5,000 图，0 缺失/损坏/重复内容）切分为 `3,000 train (15,007 caps) / 1,000 dev (5,005 caps) / 1,000 test (5,002 caps)`；ID 清单入库 `configs/splits/coco2017_split_ids.json`；依赖锁定至 `requirements.txt`（78 包） |
+| T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | done | T1 | Antigravity / 自审（含缓存往返校验） | 3 模型全部在 M1 Pro MPS 加载并完成 100 图/501 文本 smoke；`cache_roundtrip_exact=true`；单模型编码 1.1–2.4s，峰值 RSS 2060.5 MB；`pytest` 4/4 通过 |
 | T3 | 核心检索、计分、新特征、重排与合成单元测试 | todo | T0（可与 T1/T2 并行） | 待认领 / 待分配 | `pytest` 全覆盖 EVALUATION §5 单元测试清单 |
 | T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | todo | T1–T3 | 待认领 / 待分配 | dev 对比表、Modality Gap/PCA/K-Means/Hubness 图、CV 选参记录；冻结 Phase 1 配置 |
 | T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | deferred | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | 待认领 / 待分配 | Day 4 决策是否激活；若激活，仅在 dev 选参并冻结后进入 T6 |
@@ -42,6 +42,19 @@
 - 发现 Canvas 正式截止日为 **2026-12-01 23:59 HKT**，且 100 分 Rubric 重奖多方法、交叉验证、特征对比、降维聚类及新方法/新特征。
 - 精简重构文档架构：归档 `1.md`、`PROJECT_PROPOSAL.md`、`Project_Proposal.pdf`、`REVIEW.md` 至 `docs/archive/`；删除冗余 `CHECKLIST*.md`、`README.zh-CN.md`；合并产出 [REQUIREMENTS.md](REQUIREMENTS.md)、7 天冲刺版 [PLAN.md](PLAN.md) 与 [EVALUATION.md](EVALUATION.md) v2；更新 [README.md](../README.md)、[AGENTS.md](../AGENTS.md) 与 `.gitignore`；按要求完整保留 4 个本地工具目录。
 - 当前仍无代码实现、数据下载或实验指标。下一步：进入 **T1 + T2**（Day 1 确认数据集、锁定环境与 100-image smoke）。
+
+### 2026-11-24 — Round 1：COCO val2017 切分校验、环境锁定与 3 模型 100 图 Smoke（T1 + T2）
+- **数据策略执行（D05）**：未持有 Flickr30k 授权，直接下载官方公开 COCO `val2017`（5,000 图 + `captions_val2017.json`，`sha256=afe3b30e403dd7f228e2373023abbd60042a6e10ec6874d3652df034d289ebb9`）。经 PIL 逐图解码与 SHA256 去重核查：0 缺失、0 损坏、0 内容重复。按 `PCG64(5489)`（NumPy `2.5.5`）切分为严格互斥的 `train`（3,000 图 / 15,007 描述）、`dev`（1,000 图 / 5,005 描述）、`test`（1,000 图 / 5,002 描述）与 `smoke_dev100`（100 图 / 501 描述），显式 ID 清单已追踪保存至 `configs/splits/coco2017_split_ids.json`。
+- **环境与模型权重锁定**：使用 `uv` 建立 `.venv`（Python 3.12.16、`torch==2.15.0` MPS 可用、`open-clip-torch==4.2.2`、`transformers==5.24.0`、`scikit-learn==1.9.1`、`umap-learn==0.6.0`），冻结至 `requirements.txt`。3 个权重文件实测 SHA256：
+  - `CLIP ViT-B/32 (openai, QuickGELU)`：`e6d1bd7789aa45192b3bf90570a789b478bae1b74ebcce7eddd908e83a2b7c31`（512 维，ctx=77）
+  - `CLIP RN50 (openai, QuickGELU)`：`da0baa37fb2211eee5729ab69ed587eb10d48f5b7076ceeed01552fc3d4cb4ee`（1024 维，ctx=77）
+  - `SigLIP ViT-B/16 (webli)`：`81942ea8c09b9e41963357cca5d2682118bf7eb7491c2ae51a28bc4f4f95b194`（768 维，ctx=64）
+- **实现与验证**（退出码均为 0）：
+  - 新增 `pyproject.toml`、`configs/models.yaml`、`src/vlm_retrieval/{data,model,cache}.py`、`scripts/{prepare_coco,smoke_round1}.py`、`tests/test_data_and_cache.py`。
+  - 修复 smoke 发现的两处细节：缓存加载不再二次重归一化（保证 float32 bit-exact 往返一致）；OpenAI CLIP 启用 `force_quick_gelu=True` 消除激活函数不匹配警告。
+  - `.venv/bin/python scripts/smoke_round1.py`（产物 `artifacts/smoke/round1_smoke_report.json`）：3 模型 × 2 文本策略全部 `cache_roundtrip_exact=true`，截断率均为 0.0%，单模型 100 图编码耗时 1.13s–2.40s，峰值 RSS 2060.5 MB；100 图 smoke 参考 R@1（仅作健全性检查，非正式评测）：CLIP ViT-B/32 raw 79.84/93.00%、RN50 raw 77.84/91.00%、SigLIP raw 91.02/96.00%（T2I/I2T）。
+  - `.venv/bin/pytest -v`：4 passed in 3.95s。
+- **下一步**：Round 2（T3）实现核心检索、精确计分、Winoground 计分、特征变换/降维聚类、CSLS/Dual-Softmax 5-fold CV 与完整合成单元测试。
 
 ---
 

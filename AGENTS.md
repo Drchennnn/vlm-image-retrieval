@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 Canvas 100 分 Rubric 对齐、v2 实验架构升级与目录文档整理（旧审核记录、原始题目与已提交 Proposal 已归档至 `docs/archive/`）。当前尚未创建 `src/` 实现，也未进行数据下载、环境锁定或模型实验；`requirements.txt` 仍为历史候选清单。下一步进入 **T1 + T2**（Day 1 数据确认、环境锁定与 100 图 smoke）。
+已完成 T0（文档重构与 v2 协议升级）及 Round 1（T1 + T2：COCO `val2017` 5,000 图下载核验与 3K/1K/1K 互斥划分、`.venv` 与 `requirements.txt` 依赖锁定、`data/model/cache` 模块实现、3 模型 100 图 MPS smoke 与 4 项单测通过）。下一步进入 **Round 2（T3）**：实现 `retrieval / metrics / features / rerank / evaluate / cli` 模块及完整合成单元测试。

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlm-retrieval"
+version = "0.1.0"
+description = "CS5489 Natural-Language Image Retrieval with Pretrained Vision-Language Models"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "Benyi Chen" },
+  { name = "Muyao Yan" },
+  { name = "Jianheng Qiao" },
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
