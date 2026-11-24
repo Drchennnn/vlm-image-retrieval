@@ -2,41 +2,33 @@
 
 ## 项目契约
 
-- 原始要求：[1.md](1.md)。实现预训练视觉语言模型的双向检索，解释对比预训练；不从零训练基础模型；微调可选。
-- 日常沟通中文；主 README、正式 Proposal 和提交材料使用英文。
-- 证据优先级：用户最新要求 → 原始课程要求 → 当前代码/运行证据 → 项目协议 → 历史说明。发现冲突要明确记录，不能静默改写范围。
-- [docs/PROGRESS.md](docs/PROGRESS.md) 是任务状态唯一来源；[docs/EVALUATION.md](docs/EVALUATION.md) 管实验协议；[docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) 管结构、执行和审查。
+- 原始要求与 Canvas 100 分评分表见 [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)（原始选题留档于 [docs/archive/1.md](docs/archive/1.md)）。核心任务为基于预训练视觉语言共享表征的双向检索与对比预训练原理解释；不从零训练基础模型；正式截止时间 **2026-12-01 23:59 HKT**。
+- 日常沟通使用中文；主 `README.md`、最终报告与提交材料使用英文。
+- 证据优先级：用户最新要求 → 原始课程要求与 Rubric → 当前代码/运行证据 → 项目协议 → 历史归档。发现冲突须显式记录，不静默改写范围。
+- 核心四文档各司其职：[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)（题目与评分）、[docs/PLAN.md](docs/PLAN.md)（架构与 7 天排期）、[docs/EVALUATION.md](docs/EVALUATION.md)（唯一实验协议 v2）、[docs/PROGRESS.md](docs/PROGRESS.md)（唯一任务状态与决策台账）。历史审核与 Proposal 存放在 `docs/archive/`。
 
-## 当前基线决定
+## 当前设计决定（v2）
 
-- 冻结 OpenAI CLIP ViT-B/32；配套预处理和 tokenizer；L2 归一化与精确排序。
-- Flickr30k 为有条件主数据；COCO val2017 自定义划分为访问受阻后的备选。下载前核对来源、条款、规模和存储预算。
-- 主指标是双向 R@1/5/10；保留完整图像到多描述映射，按 image ID 隔离划分。
-- 只比较 raw captions 与固定 `a photo of ` 前缀。Winoground 不作训练、模型选择、提示词选择或早停依据。
-- 不把随机子集指标与标准完整候选库指标直接比较；不把相似度当校准后的概率。
-- 不因工具已安装而自动启动 OpenSpec、Spec Kit、OMX Team 或长期自主目标。
+- **Phase 1 必做主线**：对比 `CLIP ViT-B/32`（基线）、`CLIP RN50` 与 `SigLIP`（InfoNCE vs Sigmoid 损失）；保留 `raw` vs `a photo of ` 前缀对照；执行数据探索、Modality Gap 去中心/白化新特征表示、PCA 维度压缩与 K-Means/Hubness 分析；实现 **CSLS** 与 **Dual-Softmax** 重排并通过 dev 上 **image-grouped 5-fold CV** 调参。
+- **Phase 2 可选冲刺**：在 Phase 1 通过且预算落定后，可选启动 NegCLIP-lite 组合性硬负例轻量适应；不以训练提分为项目成败条件。
+- **数据策略**：Day 1 可验证 Flickr30k 授权与 split 则用 Flickr30k，否则直接切换官方 COCO `val2017` 自定义划分并显式标注，不冒称 Karpathy 5K test。
+- **防泄漏铁律**：所有特征变换参数（均值、白化矩阵、PCA、K-Means）、CV 超参与可选微调选择均只允许在 dev/train 完成；held-out test 与 Winoground 仅在配置冻结后运行一次。Winoground 严格 evaluation-only。
+- 不因本地存在 `.agents/`、`.specify/`、`openspec/`、`.omx/` 而自动启动对应工作流框架。
 
 ## 执行边界
 
-- 在当前已授权范围内，普通文档/代码编辑和验证直接推进，不重复请求许可。README 可直接更新，不存在逐次展示审批要求。
-- 大批量删除必须先说明准确范围并等待用户明确批准；不得被自主执行规则覆盖。
-- 创建目录、下载数据/权重、安装依赖或训练前，检查是否属于当前任务授权。仅文档规划不授权这些实现动作；遇到未授权的新范围再询问。
-- 不代用户接受数据条款、分享账户资料或处理缺失凭证。记录阻塞，继续不依赖它的工作。
-- 不覆盖其他工作者的修改；独立任务可委派原生子 agent，明确文件所有权，最终由主 agent 集成与验证。
-- 不虚构命令、结果、指标、完成状态、资源可用性、组员分工或论文结论。
+- 在已授权范围内，普通文档/代码编辑与测试验证直接推进，不重复请求许可；`README.md` 可直接维护。
+- **大批量删除必须先说明准确范围并等待用户明确批准**；不得被自主规则覆盖。
+- 下载数据集/模型权重、安装依赖或启动训练前，确认属于当前任务授权；不代用户接受数据集条款、分享账户凭证或绕过访问限制。
+- 不虚构命令、指标、完成状态、资源可用性或组员分工；禁止手填数字替代运行产物。
 
 ## 完成与审查
 
-- 每个任务先定义验收证据，再实现，再审查；状态为 `todo / doing / blocked / review / done / deferred`。
-- `done` 必须有验证命令、输出/产物路径与审查结论。写完代码不等于完成实验。
-- 改动评估逻辑时必须覆盖多正例、重复 ID、跨划分泄漏、排序轴、平分、Winoground 严格不等式；只改文档不运行无关模型测试。
-- 编写者不能把自己的声明当独立审核。优先由另一 agent/成员只读审查；不可用时标注自审限制。
-- 结果绑定 run ID、代码修订/未提交差异、环境、数据与 split hash、模型来源、配置、日志及逐查询输出。禁止用手填数字替代运行产物。
-- 最终测试集只在方案冻结后运行。看到测试结果后作出的新实验须标注探索性；修复评估 bug 后记录旧结果失效及重新运行原因。
-- 重要里程碑更新进度台账和 README 摘要，避免多份任务表相互矛盾。
+- 状态枚举为 `todo / doing / blocked / review / done / deferred`，统一登记在 [docs/PROGRESS.md](docs/PROGRESS.md)。`done` 必须附验证命令、输出/产物路径与审查结论；写完代码不等于完成实验。
+- 改动评估、特征变换或重排逻辑时，必须跑过对应合成单元测试（多正例、重复/跨划分 ID 泄漏、排序轴、平分、Winoground 严格不等式与 24 排列、5-fold image-grouped 无泄漏、特征拟合仅限 dev）；只改文档不运行无关模型实验。
+- 正式运行产物须绑定 `run_id`、git commit / dirty diff hash、依赖版本、数据与 split hash、权重 hash、配置、日志及逐查询/逐组输出。
+- 优先由另一 agent 或组员只读审查核心评估代码与最终报告数字；不可用时标注自审边界。
 
-## 当前快照（2026-10-20）
+## 当前快照（2026-11-24）
 
-已核对原始要求、两篇英文论文、既有 README/CHECKLIST 及官方来源；已制定结构、评估、执行审查计划及英文 Proposal。论文实际位于 `paper/`。没有项目实现、数据或模型实验的验证证据。`requirements.txt` 仍是历史候选清单；项目专用环境状态未核实。
-
-下一步是数据访问与 manifest 审核，以及环境/模型的小规模可行性验证；具体验收见进度台账。当前文档交付不表示上述工作已执行。
+已完成 Canvas 100 分 Rubric 对齐、v2 实验架构升级与目录文档整理（旧审核记录、原始题目与已提交 Proposal 已归档至 `docs/archive/`）。当前尚未创建 `src/` 实现，也未进行数据下载、环境锁定或模型实验；`requirements.txt` 仍为历史候选清单。下一步进入 **T1 + T2**（Day 1 数据确认、环境锁定与 100 图 smoke）。

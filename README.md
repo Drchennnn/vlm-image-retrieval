@@ -1,45 +1,49 @@
 # Natural-Language Image Retrieval with Pretrained Vision-Language Models
 
-[中文](README.zh-CN.md) · CS5489 Machine Learning · Reviewed 20 October 2026
+CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team: Benyi Chen, Muyao Yan, Jianheng Qiao
 
-## Status and scope
+## Status
 
-**Planning and independent review completed; implementation and experiments have not started.** The repository contains the assignment, reference papers and planning documents. No dataset acquisition, installed project environment, model execution or experimental metric has been verified.
+**Architecture and v2 evaluation protocol finalized; implementation and experiments have not started yet.** No dataset download, locked Python environment, model execution, or experimental metric has been verified yet.
 
-Following [the assignment](1.md), this project will build a reproducible text-to-image and image-to-text retrieval system using pretrained CLIP, explain its contrastive pretraining objective, and investigate the limits of compositional matching. Foundation-model pretraining is out of scope. Fine-tuning is optional and conditional on a validated baseline, suitable training data and measured compute capacity.
+## Overview
 
-## Proposed study
+Following the CS5489 project specification ([requirements & rubric](docs/REQUIREMENTS.md)), this project builds a reproducible bidirectional image-text retrieval system (text-to-image and image-to-text) on pretrained vision-language representations, explains contrastive pretraining (Softmax InfoNCE vs. Sigmoid pairwise loss), and investigates **modality gap**, **hubness**, and **compositional robustness**. Foundation-model pretraining from scratch is out of scope.
 
-| Component | Decision / condition |
+### Experimental Design (v2)
+
+| Dimension | Planned Design |
 |---|---|
-| Baseline | Frozen OpenAI CLIP ViT-B/32 with its supplied preprocessing and tokenizer |
-| Primary data | Flickr30k, conditional on authorized access and validation of published retrieval split IDs |
-| Access fallback | COCO val2017 with an explicitly labelled custom development/evaluation split; never described as the Karpathy test split |
-| Retrieval | L2-normalized embeddings, exact cosine ranking, cached features and batched scoring |
-| Primary metrics | Recall@1, @5 and @10, separately for both retrieval directions |
-| Controlled comparison | Raw captions versus the fixed `a photo of ` prefix, motivated by CLIP Appendix E.1 |
-| Diagnostic | Winoground text, image and group scores, evaluation-only and conditional on licensed access |
-| Optional extension | One bounded adaptation experiment, only after the baseline review gate |
+| Pretrained backbones | OpenAI CLIP `ViT-B/32` (baseline), CLIP `RN50` (CNN vs. ViT), and `SigLIP` (Softmax InfoNCE vs. Sigmoid loss) |
+| Prompt control | Raw captions vs. fixed `a photo of ` prefix (CLIP Appendix E.1) |
+| Datasets | Flickr30k (Karpathy split) if access is verified on Day 1; otherwise official COCO `val2017` with an explicitly labelled, image-ID-isolated custom split |
+| Representation & analysis | PCA/UMAP modality-gap visualization, PCA dimensionality compression, K-Means semantic cluster analysis, hubness distribution, and **mean-centering / whitening** feature alignment (fit on dev only) |
+| Training-free reranking | **CSLS** and **Dual-Softmax** hubness mitigation, tuned via **image-grouped 5-fold cross-validation** on dev |
+| Compositional diagnostic | **Winoground** (400 groups, strict text/image/group scoring, evaluation-only, conditional on licensed access) |
+| Optional Phase-2 sprint | Lightweight compositional hard-negative adaptation (NegCLIP-lite LoRA/Adapter) on an independent train split, strictly isolated from test and Winoground |
 
-These are project design choices, not measured findings. No performance improvement is promised. “Zero-shot” means no task-specific weight updates; it does not establish absence of overlap with CLIP's pretraining data.
+No performance gain is claimed prior to experiments. "Zero-shot" means no task-specific weight updates and does not guarantee absence of pretraining overlap.
 
-## Method
+## Repository Layout
 
-CLIP maps images and captions into a shared representation space. During pretraining, a symmetric cross-entropy objective promotes matching image-caption pairs over other pairings within a batch. In this project, the initial encoders remain frozen. Normalized image and text embeddings are ranked by their dot product; image-to-text evaluation accepts any annotated caption for the query image. See the [evaluation protocol](docs/EVALUATION.md) for exact definitions, split isolation and Winoground scoring.
+```text
+.
+├── README.md                  # Project overview (and future Code ZIP instructions)
+├── AGENTS.md                  # Engineering and review rules
+├── requirements.txt           # Historical candidate list (to be locked in T1)
+├── docs/
+│   ├── REQUIREMENTS.md        # Assignment prompt, Canvas rubric, and submission rules
+│   ├── PLAN.md                # Target package architecture and 7-day sprint plan
+│   ├── EVALUATION.md          # Authoritative experimental protocol (v2)
+│   ├── PROGRESS.md            # Single source of truth for task status and decisions
+│   └── archive/               # Original prompt, Oct-20 review, and submitted Proposal
+└── paper/                     # Reference PDFs (CLIP and Winoground)
+```
 
-## Documentation
-
-- [Project Proposal](PROJECT_PROPOSAL.md): standalone English submission text; [PDF](output/pdf/Project_Proposal.pdf).
-- [Independent review](docs/REVIEW.md): assignment traceability, corrections, evidence and unresolved assumptions.
-- [Project plan](docs/PROJECT_PLAN.md): intended structure, interfaces, six-week schedule, execution and review gates.
-- [Evaluation protocol](docs/EVALUATION.md): data sources, metrics, experiment controls and reproducibility requirements.
-- [Progress ledger](docs/PROGRESS.md): authoritative task status and evidence; [checklist](CHECKLIST.md) is a navigation summary.
-- [Agent instructions](AGENTS.md): operational rules for future contributors.
-
-The implementation layout in the plan is **not yet created**. `requirements.txt` remains an unpinned historical candidate list, not a validated installation specification. Dependency selection and locking are part of the environment milestone. No application command is advertised before it exists and passes a smoke test.
+Implementation folders (`src/vlm_retrieval/`, `configs/`, `tests/`, `data/`, `artifacts/`, `reports/`) will be created as implementation milestones start. Dataset download URLs, preprocessing scripts, and runnable CLI commands will be documented here once verified.
 
 ## References
 
-- Radford et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision*. [Paper](https://arxiv.org/abs/2103.00020) · [Local PDF](paper/Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision.pdf) · [Official implementation](https://github.com/openai/CLIP).
-- Thrush et al. (2022). *Winoground: Probing Vision and Language Models for Visio-Linguistic Compositionality*. [Paper](https://arxiv.org/abs/2204.03162) · [Local PDF](paper/Winoground.pdf) · [Dataset](https://huggingface.co/datasets/facebook/winoground).
-- [Flickr30k source and access terms](https://shannon.cs.illinois.edu/DenotationGraph/) · [Published split release](https://cs.stanford.edu/people/karpathy/deepimagesent/) · [COCO](https://cocodataset.org/#download).
+- Radford et al. (2021). *Learning Transferable Visual Models From Natural Language Supervision*. [arXiv:2103.00020](https://arxiv.org/abs/2103.00020) · [Local PDF](paper/Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision.pdf) · [Code](https://github.com/openai/CLIP)
+- Thrush et al. (2022). *Winoground: Probing Vision and Language Models for Visio-Linguistic Compositionality*. [arXiv:2204.03162](https://arxiv.org/abs/2204.03162) · [Local PDF](paper/Winoground.pdf) · [Dataset](https://huggingface.co/datasets/facebook/winoground)
+- [Flickr30k](https://shannon.cs.illinois.edu/DenotationGraph/) · [Karpathy splits](https://cs.stanford.edu/people/karpathy/deepimagesent/) · [COCO](https://cocodataset.org/#download)

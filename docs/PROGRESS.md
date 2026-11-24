@@ -1,69 +1,56 @@
 # 项目进度与决策台账
 
-更新日期：2026-10-20。本文件是任务状态唯一来源；README/Checklist 只提供摘要与入口。
+更新日期：2026-11-24。本文件是任务状态、决策与验收证据的唯一来源。正式截止时间：**2026-12-01 23:59 HKT**。
 
-## 任务
+## 任务清单
 
 | ID | 任务 | 状态 | 依赖 | 执行者 / 审查者 | 验收证据或下一步 |
 |---|---|---|---|---|---|
-| P0 | 独立审核、文档机制、英文 Proposal | done | 原始要求与论文 | Codex 主执行 / document_review agent | 10 份 Markdown、43 个本地链接通过；3 页 PDF 逐页检查与全文一致性通过；独立审查问题已修正，见日志 |
-| P1 | 数据访问、条款、manifest/split 审核 | todo | P0 | 待认领 / 待分配 | 获取授权后核查实际 ID/数量/hash；第 1 周选择 Flickr30k 或 COCO 备选 |
-| P2 | 环境锁定、模型 smoke、资源预算 | todo | P0；真实数据 smoke 需 P1 | 待认领 / 待分配 | 最小依赖、权重校验、100-image PoC、时间/内存实测 |
-| P3 | 数据/排序/计分实现与合成测试 | todo | P0；可与 P1/P2 部分并行 | 待认领 / 待分配 | 按 EVALUATION §6 验证；不依赖下载即可测试 scorer |
-| P4 | 全 dev 基线与 CLI | todo | P1–P3 | 待认领 / 待分配 | 双向完整候选库结果及复现产物 |
-| P5 | E0/E1 dev 对比、E2 去留、冻结配置 | todo | P4 | 待认领 / 待分配 | 两种配置均保留；P5a 为 deferred，或 P5a done 后冻结选定配置/hash |
-| P5a | 可选适应实验 E2 | deferred | P4；独立 train/预算/方案 | 待认领 / 待分配 | 当前不启动；如激活，须在 P5 最终冻结前完成开发集选择 |
-| P6 | 最终 retrieval test 与 Winoground | todo | P5 done 且 P5a 为 done/deferred | 待认领 / 待分配 | 完整指标/逐查询与组内分数；缺失访问单列 |
-| P7 | 不确定性、错误分析与最终报告 | todo | P6 | 待认领 / 待分配 | paired bootstrap、失败案例规则、来源可追溯 |
-| P8 | 独立复现、演示与最终提交包 | todo | P7 | 待认领 / 待分配 | 复现记录、文件与结论审核 |
+| T0 | 初始审核、英文 Proposal、文档架构精简与 v2 协议升级 | done | 原始题目 + Canvas Rubric | Codex（10/20）/ Antigravity（11/24） | 旧文档归档至 `docs/archive/`；合并 `REQUIREMENTS.md`、`PLAN.md`、`EVALUATION.md` v2；链接与 git 状态核查通过 |
+| T1 | 数据获取/条款确认、split manifest 校验与环境锁定 | todo | T0 | 待认领 / 待分配 | Day 1 确认 Flickr30k 或直切 COCO val2017；保存 manifest + SHA256；锁定 `requirements.txt` |
+| T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | todo | T1 | 待认领 / 待分配 | 权重校验、截断统计、缓存往返一致、设备耗时与内存实测 |
+| T3 | 核心检索、计分、新特征、重排与合成单元测试 | todo | T0（可与 T1/T2 并行） | 待认领 / 待分配 | `pytest` 全覆盖 EVALUATION §5 单元测试清单 |
+| T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | todo | T1–T3 | 待认领 / 待分配 | dev 对比表、Modality Gap/PCA/K-Means/Hubness 图、CV 选参记录；冻结 Phase 1 配置 |
+| T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | deferred | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | 待认领 / 待分配 | Day 4 决策是否激活；若激活，仅在 dev 选参并冻结后进入 T6 |
+| T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | todo | T4 done 且 T5 为 done/deferred | 待认领 / 待分配 | 完整 run bundles、95% CI、全部最终图表（含缺失访问显式说明） |
+| T7 | 英文最终报告 PDF 与可复现代码清理 | todo | T6 | 待认领 / 待分配 | 对照 100 分 Rubric 逐项核对；全部图表与表格可溯源至 run ID |
+| T8 | ≤5 分钟 Panopto 演示视频、Code ZIP 打包与 Canvas 三项提交 | todo | T7 | 待认领 / 待分配 | 独立复现验证、`ProjectGroup_X_Code.zip`、视频嵌入、组员贡献声明 |
 
-状态：`todo / doing / blocked / review / done / deferred`。数据访问尚未尝试，不把它写成已经发生的 blocked；将其列为前置依赖和风险。
+状态枚举：`todo / doing / blocked / review / done / deferred`。
+
+---
 
 ## 决策记录
 
 | ID / 日期 | 决策与原因 | 重开条件 |
 |---|---|---|
-| D01 / 2026-10-20 | 双向 frozen CLIP 为必做；从零预训练不在范围；微调可选 | 原始课程要求或用户范围变化 |
-| D02 / 2026-10-20 | 有条件主数据 Flickr30k；访问失败改 COCO val2017 自定义协议 | split 不可验证、访问/条款不允许或预算不合适 |
-| D03 / 2026-10-20 | Winoground 仅评估，不调参；访问失败如实报告 | 明确的新研究设计，且不得复用作独立测试 |
-| D04 / 2026-10-20 | ViT-B/32、精确余弦检索、raw/prefix 两配置 | 模型兼容失败，或 dev 阶段经记录的设计修订 |
-| D05 / 2026-10-20 | 单一进度台账；编写与审查分离；六周相对计划 | 确认课程期限或实际组员分工 |
-| D06 / 2026-10-20 | 全英文 Proposal；Benyi Chen / Muyao Yan / Jianheng Qiao；无指定模板/字数 | 用户提供不同的官方英文拼写或提交规范 |
+| D01 / 2026-10-20 | 双向冻结预训练 VLM 检索为必做；不从零训练基础模型；微调可选 | 课程要求变更 |
+| D02 / 2026-10-20 | Winoground 严格 evaluation-only，不参与训练、选参或提示选择；访问受限时如实交代 | 新研究设计且不复用作独立测试 |
+| D03 / 2026-10-20 | 英文提交材料与主 README；组员署名 Benyi Chen / Muyao Yan / Jianheng Qiao | 用户确认官方拼写、组号或 EID |
+| D04 / 2026-11-24 | 对齐 Canvas 100 分 Rubric 与 7 天截止日（12/01）：Phase 1 升级为“多骨干/损失对比（CLIP ViT-B/32, RN50, SigLIP）+ Modality Gap 白化/PCA/K-Means/Hubness 分析 + CSLS/Dual-Softmax 5-fold CV 重排”；Phase 2 保留 NegCLIP-lite 硬负例轻量适应为冲刺项 | Day 1–3 设备实测显存/时长受限或用户调整范围 |
+| D05 / 2026-11-24 | 数据务实切换规则：若 Day 1 内无法立即获得 Flickr30k 授权与官方 split，直接启用官方 COCO val2017 自定义划分并显式标注，不等待审批阻塞进度 | Flickr30k 当日获批且校验通过 |
+| D06 / 2026-11-24 | 精简仓库文档架构：删除冗余 `CHECKLIST*.md` 与 `README.zh-CN.md`，归档历史 Proposal/Review/1.md 至 `docs/archive/`，统一核心四文档（`REQUIREMENTS / PLAN / EVALUATION / PROGRESS`）；保留 `.agents / .specify / openspec / .omx` 工具目录不动；`.gitignore` 改为标准黑名单 | 后续提交 ZIP 打包前按需微调 |
 
-## 当前证据与限制
-
-- 已读取原始题目、两篇英文论文及既有项目文档；外部数据与模型依据由独立研究 agent 核查，链接见评估协议。
-- 原工作树检查为 clean；现有历史提交 `c232323`。本轮文档属于其后的未提交修改，不把旧 commit 当本轮版本。
-- 本轮无数据下载、权重下载、依赖安装、模型运行或训练；无任何可报告实验指标。
-- 已有 `requirements.txt` 只是未锁版本的候选列表；未验证项目专用环境存在或缺失。
-- 实际 deadline、个人任务分工、账户访问和计算预算待实现阶段落实。
+---
 
 ## 执行日志
 
-### 2026-10-20 — 文档审核与规划
+### 2026-10-20 — 初始审核与 Proposal 交付（P0）
+- 完成原始题目、两篇论文与外部官方来源核查；产出 3 页英文 Proposal PDF（[Project_Proposal.pdf](archive/Project_Proposal.pdf)）与 v1 评估协议；独立审查通过。本轮无代码实现或模型实验。
 
-完成：识别旧论文链接、Git 白名单遗漏、README 审批规则冲突；确定主线、候选数据及备选、评估协议、拟建结构和审查机制；按用户要求编写英文 Proposal。
+### 2026-11-24 — Rubric 对齐、创新方案设计与文档重构（T0）
+- 发现 Canvas 正式截止日为 **2026-12-01 23:59 HKT**，且 100 分 Rubric 重奖多方法、交叉验证、特征对比、降维聚类及新方法/新特征。
+- 精简重构文档架构：归档 `1.md`、`PROJECT_PROPOSAL.md`、`Project_Proposal.pdf`、`REVIEW.md` 至 `docs/archive/`；删除冗余 `CHECKLIST*.md`、`README.zh-CN.md`；合并产出 [REQUIREMENTS.md](REQUIREMENTS.md)、7 天冲刺版 [PLAN.md](PLAN.md) 与 [EVALUATION.md](EVALUATION.md) v2；更新 [README.md](../README.md)、[AGENTS.md](../AGENTS.md) 与 `.gitignore`；按要求完整保留 4 个本地工具目录。
+- 当前仍无代码实现、数据下载或实验指标。下一步：进入 **T1 + T2**（Day 1 确认数据集、锁定环境与 100-image smoke）。
 
-验证（退出码均为 0）：
+---
 
-- `git diff --check`：通过，无空白/补丁格式问题。
-- 使用临时 `/tmp/cs5489-validate-docs.py` 检查 10 份 Markdown：43 个本地文件链接均存在；无冲突标记；原始要求、文档、原文 PDF 和 Proposal PDF 均不会被 `.gitignore` 漏掉。该脚本为本轮验证辅助，不是项目运行依赖。
-- `pdfinfo output/pdf/Project_Proposal.pdf`：3 页 A4，三名作者元数据正确。
-- 用 `pdftoppm` 渲染全部 3 页并人工视觉检查：无截断、重叠、空白尾页或缺失参考文献。
-- 用 `pypdf` 提取 PDF 全文，与 Markdown 去除格式及页眉页脚后完全一致；Proposal 正文约 1,403 英文词（含标题信息，不含参考文献）。
-- 独立 `document_review` 审查无 HIGH/CRITICAL；两项 MEDIUM 为提前声明完成、可选训练的条件依赖未闭合。本轮最终检查后同步 P0；P5/P6 现明确要求 P5a 为 done/deferred，并同步计划与 Proposal 的冻结顺序。独立审查者复核两项修复后给出 APPROVE，遗留问题为 0。
-
-产物：[英文源文](../PROJECT_PROPOSAL.md)、[提交 PDF](../output/pdf/Project_Proposal.pdf)及本目录四份规划文件。本轮未创建模型实现、未运行项目实验，也未提交 Git commit。使用已有文档运行时生成 PDF，未安装新依赖。
-
-下一步是按 P1/P2 启动数据与环境实现阶段；本轮审核与文档交付已完成。
-
-## 后续更新模板
+## 后续日志模板
 
 ```text
-日期 / task ID / 执行者 / 审查者：
+日期 / Task ID / 执行者 / 审查者：
 状态变化与实际改动：
-验证命令、退出码、结果摘要：
-run ID / commit 或 dirty diff hash / 产物路径：
-未解决问题与恢复条件：
-下一步及协议变更影响：
+验证命令、退出码与结果摘要：
+run ID / git commit 或 dirty diff hash / 产物路径：
+阻塞与下一步：
 ```
