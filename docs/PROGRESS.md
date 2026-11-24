@@ -9,7 +9,7 @@
 | T0 | 初始审核、英文 Proposal、文档架构精简与 v2 协议升级 | done | 原始题目 + Canvas Rubric | Codex（10/20）/ Antigravity（11/24） | 旧文档归档至 `docs/archive/`；合并 `REQUIREMENTS.md`、`PLAN.md`、`EVALUATION.md` v2；链接与 git 状态核查通过 |
 | T1 | 数据获取/条款确认、split manifest 校验与环境锁定 | done | T0 | Antigravity / 自审（含合成单测） | 官方 COCO val2017（5,000 图，0 缺失/损坏/重复内容）切分为 `3,000 train (15,007 caps) / 1,000 dev (5,005 caps) / 1,000 test (5,002 caps)`；ID 清单入库 `configs/splits/coco2017_split_ids.json`；依赖锁定至 `requirements.txt`（78 包） |
 | T2 | 模型加载（CLIP ViT-B/32, RN50, SigLIP）与 100 图 smoke | done | T1 | Antigravity / 自审（含缓存往返校验） | 3 模型全部在 M1 Pro MPS 加载并完成 100 图/501 文本 smoke；`cache_roundtrip_exact=true`；单模型编码 1.1–2.4s，峰值 RSS 2060.5 MB；`pytest` 4/4 通过 |
-| T3 | 核心检索、计分、新特征、重排与合成单元测试 | todo | T0（可与 T1/T2 并行） | 待认领 / 待分配 | `pytest` 全覆盖 EVALUATION §5 单元测试清单 |
+| T3 | 核心检索、计分、新特征、重排与合成单元测试 | done | T0（可与 T1/T2 并行） | Antigravity / 自审（14 项合成单测 + CLI 端到端 smoke） | 完成 `retrieval / metrics / features / rerank / evaluate / cli` 模块；`pytest` 14/14 通过（含多正例、轴交换、平分、Winoground 24 排列=4/24、Hubness 救援、5-fold image-grouped 无泄漏、特征仅 dev 拟合）；CLI `evaluate` 与双向 `search` smoke 通过 |
 | T4 | dev 集完整基线（E0–E2）、数据/降维聚类分析、新特征（E3）与 5-fold CV 重排（E4） | todo | T1–T3 | 待认领 / 待分配 | dev 对比表、Modality Gap/PCA/K-Means/Hubness 图、CV 选参记录；冻结 Phase 1 配置 |
 | T5 | Phase 2 可选冲刺：NegCLIP-lite 组合性硬负例轻量适应（E5） | deferred | T4（Phase 1 稳定 + 独立 train 划分 + ≤2h 预算） | 待认领 / 待分配 | Day 4 决策是否激活；若激活，仅在 dev 选参并冻结后进入 T6 |
 | T6 | 最终 held-out test、Winoground 诊断、bootstrap CI 与分层失败分析 | todo | T4 done 且 T5 为 done/deferred | 待认领 / 待分配 | 完整 run bundles、95% CI、全部最终图表（含缺失访问显式说明） |
@@ -55,6 +55,18 @@
   - `.venv/bin/python scripts/smoke_round1.py`（产物 `artifacts/smoke/round1_smoke_report.json`）：3 模型 × 2 文本策略全部 `cache_roundtrip_exact=true`，截断率均为 0.0%，单模型 100 图编码耗时 1.13s–2.40s，峰值 RSS 2060.5 MB；100 图 smoke 参考 R@1（仅作健全性检查，非正式评测）：CLIP ViT-B/32 raw 79.84/93.00%、RN50 raw 77.84/91.00%、SigLIP raw 91.02/96.00%（T2I/I2T）。
   - `.venv/bin/pytest -v`：4 passed in 3.95s。
 - **下一步**：Round 2（T3）实现核心检索、精确计分、Winoground 计分、特征变换/降维聚类、CSLS/Dual-Softmax 5-fold CV 与完整合成单元测试。
+
+### 2026-11-24 — Round 2：核心检索/计分/新特征/重排/CLI 模块与合成单元测试（T3）
+- **新增实现**：
+  - `src/vlm_retrieval/retrieval.py`：精确 float32 余弦相似度（整矩阵/分块一致）、确定性平分排序（分数降序 + 稳定 ID 升序）。
+  - `src/vlm_retrieval/metrics.py`：纯函数双向 `R@1/5/10`、`MedR`、`MeanR`、`MRR`（多正例支持）；Winoground 严格不等式计分与标签拆解；按 `image_id` 分组的 paired bootstrap 95% CI；固定 seed 分层成功/失败抽样。
+  - `src/vlm_retrieval/features.py`：仅拟合 dev/train 的 `ModalityAligner`（`center`、`zca_per_modality`、`zca_shared`）、`CrossModalPCA`、Modality Gap 几何统计、Hubness（$k$-occurrence 偏度/Gini/Robin Hood/orphan 率）与 K-Means 语义聚类分析。
+  - `src/vlm_retrieval/rerank.py`：`CSLS` 与 `Dual-Softmax`（含数值稳定的 `symmetric_log` 与 `prior_weighted` 两种变体）重排，以及按 `image_id` 分组的 5-fold 交叉验证调参器（`cross_validate_reranker`、`cross_validate_modality_aligner`）。
+  - `src/vlm_retrieval/evaluate.py` & `cli.py`：标准化 run-bundle 写出（`config.json / provenance.json / metrics.json / ranks.jsonl / run.log`）与 `encode / evaluate / search` CLI 入口。
+- **验证**（退出码均为 0）：
+  - `.venv/bin/pytest -v`：**14 passed in 6.92s**（覆盖 `test_data_and_cache.py`、`test_retrieval_and_metrics.py`、`test_features_and_rerank.py`、`test_evaluate_and_cli.py`，含 Winoground 24 排列严格 25%/25%/16.67% 校验、合成 Hubness 注入下 CSLS 与 Dual-Softmax 从 16.67% 恢复至 100% R@1、防 test 泄漏断言）。
+  - CLI smoke：`evaluate`（CSLS on `smoke_dev100` 生成完整 run bundle `artifacts/smoke_runs/smoke_cli_check`）与双向 `search`（`--image-id` I2T 与 `--text` T2I）均通过。
+- **下一步**：Round 3（T4）在完整 1,000 图 `dev` 集（5,005 条描述）上运行 Phase 1 全量基线、数据/降维聚类分析、新特征与 5-fold CV 超参选择。
 
 ---
 

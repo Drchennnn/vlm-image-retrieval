@@ -4,7 +4,7 @@ CS5489 Machine Learning (2026/27 Semester A) · Updated 24 November 2026 · Team
 
 ## Status
 
-**Round 1 (T1 + T2) completed**: official COCO `val2017` verified and split (`3,000 train / 1,000 dev / 1,000 test`, protocol `coco2017-custom-3k-train-1k-dev-1k-test-v2`), Python 3.12 dependencies locked in `requirements.txt`, and 100-image smoke tests passed on Apple Silicon MPS across `CLIP ViT-B/32`, `CLIP RN50`, and `SigLIP ViT-B/16`. Full dev/test retrieval experiments and Phase-2 adaptation are upcoming.
+**Round 2 (T3) completed**: core package (`data`, `model`, `cache`, `retrieval`, `metrics`, `features`, `rerank`, `evaluate`, `cli`) implemented and verified with **14/14 passing synthetic unit tests** (multi-positive I2T, tie-breaking, chunked consistency, Winoground 24-permutation check, hubness rescue, 5-fold image-grouped CV, and anti-leakage guards) plus end-to-end CLI smoke checks. Full dev-set Phase 1 experiments (Round 3) and Phase 2 adaptation (Round 4) are next.
 
 ## Overview
 

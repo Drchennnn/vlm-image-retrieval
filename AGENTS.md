@@ -31,4 +31,4 @@
 
 ## 当前快照（2026-11-24）
 
-已完成 T0（文档重构与 v2 协议升级）及 Round 1（T1 + T2：COCO `val2017` 5,000 图下载核验与 3K/1K/1K 互斥划分、`.venv` 与 `requirements.txt` 依赖锁定、`data/model/cache` 模块实现、3 模型 100 图 MPS smoke 与 4 项单测通过）。下一步进入 **Round 2（T3）**：实现 `retrieval / metrics / features / rerank / evaluate / cli` 模块及完整合成单元测试。
+已完成 T0（文档重构与 v2 协议升级）、Round 1（T1 + T2：COCO `val2017` 5,000 图 3K/1K/1K 互斥划分、环境锁定、3 模型 MPS smoke）及 Round 2（T3：`retrieval / metrics / features / rerank / evaluate / cli` 全量实现、14 项合成单测全通过、CLI 双向检索与评测 smoke 通过）。下一步进入 **Round 3（T4）**：在完整 1,000 图 `dev` 集上执行 Phase 1 全量多模型/特征/降维聚类/5-fold CV 实验。
